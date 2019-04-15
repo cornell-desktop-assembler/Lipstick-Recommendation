@@ -1,2 +1,2 @@
-# DesktopAssembler
-DesktopAssembler
+# Lipstick-Recommendation
+Lipstick-Recommendation
