@@ -13,7 +13,7 @@ class BrandInput extends Component {
                                       onChange={this.props.onChange}
                                       placeholder="Brand(s)" />
                         <Form.Text className="text" size="lg">
-                            Only enter this field if you have a strong preference
+                            Enter this field if you have a strong preference
                         </Form.Text>
                     </Form.Group>
                 </Form>

@@ -13,7 +13,7 @@ class CharacteristicInput extends Component {
                                       onChange={this.props.onChange}
                                       placeholder="Keyword(s)" />
                         <Form.Text className="text" size="lg">
-                            You can enter anything on your mind from product characteristics (like "moist") to use cases (like "interview")
+                            Enter anything on your mind from product characteristics (like "moist") to use cases (like "interview")
                         </Form.Text>
                     </Form.Group>
                 </Form>

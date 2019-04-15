@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../App.css'
+import '../css/App.css'
 import Button from "react-bootstrap/Button";
 
 class Submit extends Component {

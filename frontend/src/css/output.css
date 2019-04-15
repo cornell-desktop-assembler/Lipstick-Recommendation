@@ -1,0 +1,44 @@
+
+OutputContainer {
+    max-width: 80%;
+    text-align: center;
+}
+
+.output-parent {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    /*padding: 20px;*/
+    max-width: 100%;
+    /*left: 13%;*/
+    margin-bottom: 50px;
+    /*transform: translate(-50%, -50%);*/
+    overflow-y: scroll
+    /*background-color: grey;*/
+    /*opacity: 0.6*/
+}
+
+.card-deck {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+}
+
+.card {
+    max-width: 262.5px;
+}
+
+.card-img-top {
+    margin-top: 10px;
+    max-height: 300px;
+    max-width: 300px;
+}
+
+.Button {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
