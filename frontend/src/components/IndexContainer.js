@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
 import Dropdowns from './Dropdowns.js'
 import CharacteristicInput from './CharacteristicInput.js'
 import BrandInput from './BrandInput.js'
@@ -102,9 +103,31 @@ class IndexContainer extends Component {
         this.props.onClick(query)
     }
 
+    onFormSubmit = e => {
+        e.preventDefault();
+        let characteristicInputs = this.state.characteristicInput.replace(', ', ' ')
+            .replace(',', ' ')
+            .split(' ');
+        let brandInputs = this.state.brandInput.replace(', ', ' ')
+            .replace(',', ' ')
+            .split(' ');
+
+        //TODO: connect to backend
+        let query = 'Your query is: \n' +
+            '-- Keywords: ' + characteristicInputs + '\n' +
+            '-- Brand: ' + brandInputs + '\n' +
+            '-- Skin tone: ' + this.state.skinTone + '\n' +
+            '-- Skin type: ' + this.state.skinType + '\n' +
+            '-- Hair color: ' + this.state.hairColor + '\n' +
+            '-- Eye color: ' + this.state.eyeColor;
+        if (!this.state.submitDisabled)
+            this.props.onClick(query)
+    };
+
     render() {
         return (
             <Container>
+                <Form onSubmit={this.onFormSubmit}>
                 <Row>
                     <Col>
                         <CharacteristicInput
@@ -144,11 +167,12 @@ class IndexContainer extends Component {
                                 disabled={this.state.submitDisabled}
                                 variant={this.state.submitColor}
                                 size="lg"
-                                onClick={this.onClickSubmit}
+                                // onClick={this.onClickSubmit}
                             >Find your match!</Button>
                         </Col>
                     </Row>
                 </div>
+                </Form>
             </Container>
         );
     }
