@@ -31,15 +31,12 @@ class FrontendAppView(View):
             )
 
 def search(request):
-    R = request.GET.get('R')
-    G = request.GET.get('G')
-    B = request.GET.get('B')
-    color = np.array([int(R),int(G),int(B)])
-    result_knn_sku = sim_color_matcher.knn_sku(color, k=10)
-    for tuple in result_knn_sku:
-        result_knn_sku_json['name'] = tuple[0]
-        result_knn_sku_json['score'] = tuple[1]
-    return JsonResponse(json.dumps(result_knn_sku_json))
+    result = sim_text_matcher.keyword(request.GET.get("keyword"))
+    result_json = []
+    for tuple in result:
+        result_json.append({"name":tuple[0],"score":tuple[1]})
+    return JsonResponse(result_json)
+
 #
 #     # if not query:
 #     #     output_message = ''
