@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import IndexContainer from './components/IndexContainer.js'
 import OutputContainer from './components/OutputContainer.js'
-import scrollToComponent from 'react-scroll-to-component';
+import scrollToComponent from 'react-scroll-to-component'
+import axios from 'axios'
 import './css/App.css'
 
 class App extends Component {
@@ -9,7 +10,10 @@ class App extends Component {
         super(props);
 
         this.state = {
-            showOutput: false
+            showOutput: false,
+            names: [],
+            scores: [],
+            response: null
         };
         this.submitQuery = this.submitQuery.bind(this);
         this.returnToSearch = this.returnToSearch.bind(this);
@@ -19,7 +23,21 @@ class App extends Component {
         // alert(query);
         this.setState({
             showOutput: true
-        }, this.scrollToOutput);
+            // }, this.scrollToOutput);
+        }, () => this.sendToBackend(query));
+    }
+
+    sendToBackend(query) {
+        console.log(query);
+        axios.get('/search/?keyword='+query)
+            .then(response => this.setState(
+                {response: response}, this.printResponse
+                )
+            );
+    }
+
+    printResponse() {
+        console.log(this.state.response)
     }
 
     scrollToOutput() {
