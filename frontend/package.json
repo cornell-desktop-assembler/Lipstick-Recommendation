@@ -18,9 +18,6 @@
     "eject": "react-scripts eject",
     "heroku-prebuild": "NODE_ENV=production cd frontend/ && yarn install && yarn build && cd .."
   },
-  "cacheDirectories": [
-    "frontend/node_modules"
-  ],
   "eslintConfig": {
     "extends": "react-app"
   },
