@@ -11,7 +11,7 @@ class BrandInput extends Component {
                         <Form.Control type="string"
                                       value={this.props.data}
                                       onChange={this.props.onChange}
-                                      placeholder="Brand(s)" />
+                                      placeholder="Desired Color (rgb)" />
                         <Form.Text className="text" size="lg">
                             Enter this field if you have a strong preference
                         </Form.Text>
