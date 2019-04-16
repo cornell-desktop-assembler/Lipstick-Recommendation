@@ -60,7 +60,7 @@ class OutputContainer extends Component {
                                 </Container>
                             </Col>
                             <Col>
-                                <Button onClick={this.showDummy()}>dummy output</Button>
+                                <Button onClick={() => this.showDummy}>dummy output</Button>
                             </Col>
                         </Row>
 
