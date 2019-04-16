@@ -35,15 +35,17 @@ def euclidean_distances(rgb, comparing=u_):
     return np.linalg.norm(diff, axis=1)
 
 
-def knn_args(rgb, k, comparing=u_):
+def knn_args_dist(rgb, k, comparing=u_):
     dist = euclidean_distances(rgb, comparing=comparing)
     sorted_args = np.argsort(dist)
-    return sorted_args[:k]
+    return sorted_args[:k], dist[sorted_args[:k]]
 
 
 def knn_sku(rgb, k, comparing=u_, i2id=i2sku):
-    return [i2id[i] for i in knn_args(rgb=rgb, k=k, comparing=comparing)]
+    args, dists = knn_args_dist(rgb=rgb, k=k, comparing=comparing)
+    return [(i2id[arg], dists[i]) for i, arg in enumerate(args)]
 
 
 def knn_rgb(rgb, k, comparing=u_):
-    return raw[knn_args(rgb=rgb, k=k, comparing=comparing)]
+    args, dists = knn_args_dist(rgb=rgb, k=k, comparing=comparing)
+    return [(raw[arg], dists[i]) for i, arg in enumerate(args)]
