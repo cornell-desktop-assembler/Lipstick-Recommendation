@@ -35,7 +35,7 @@ class OutputContainer extends Component {
 
     showDummy() {
         this.setState({
-            showDummy: true
+            showDummy: !this.state.showDummy
         })
     }
 
@@ -45,6 +45,43 @@ class OutputContainer extends Component {
                 { this.props.showOutput ?
                 <div className="output-parent">
                     <Container>
+                        { this.state.showDummy ?
+                        <Row>
+                        <Container>
+                            <Row>
+                                <CardDeck>
+                                    {[1,2,3,4].map(index => (
+                                        <Card style={{ width: '22rem' }}>
+                                            <Card.Img variant="top" src={this.pictureUrls[index-1]} />
+                                            <Card.Body>
+                                                <Card.Title>{index}. {this.titles[index-1]}</Card.Title>
+                                                <Card.Subtitle>{this.texts[index-1]}</Card.Subtitle>
+                                                {/*<Card.Text>*/}
+                                                {/*    Keywords: {this.keywords[index-1]}*/}
+                                                {/*</Card.Text>*/}
+                                            </Card.Body>
+                                            <ListGroup className="list-group-flush">
+                                                <ListGroupItem>Keywords: {this.keywords[index-1]}</ListGroupItem>
+                                                <ListGroupItem>Price: ${this.prices[index-1]}</ListGroupItem>
+                                                <ListGroupItem>Color: {this.colors[index-1]}</ListGroupItem>
+                                            </ListGroup>
+                                            <Card.Body>
+                                                <Card.Link href={this.urls[index-1]}>Product Link on Sephora.com</Card.Link>
+                                            </Card.Body>
+                                            {/*<Card.Footer>*/}
+                                            {/*    <small className="text-muted">Last updated 3 mins ago</small>*/}
+                                            {/*</Card.Footer>*/}
+                                        </Card>
+                                    ))}
+
+                                </CardDeck>
+                            </Row>
+                            <Row>
+                                <Button onClick={this.props.returnToSearch}>Back To Search</Button>
+                            </Row>
+                        </Container>
+                        </Row> : null}
+
                         <Row>
                             <Col>
                                 <Container>
@@ -63,42 +100,6 @@ class OutputContainer extends Component {
                                 <Button onClick={() => this.showDummy}>dummy output</Button>
                             </Col>
                         </Row>
-
-                        {/*<Row>*/}
-                        {/*<Container>*/}
-                        {/*    <Row>*/}
-                        {/*        <CardDeck>*/}
-                        {/*            {[1,2,3,4].map(index => (*/}
-                        {/*                <Card style={{ width: '22rem' }}>*/}
-                        {/*                    <Card.Img variant="top" src={this.pictureUrls[index-1]} />*/}
-                        {/*                    <Card.Body>*/}
-                        {/*                        <Card.Title>{index}. {this.titles[index-1]}</Card.Title>*/}
-                        {/*                        <Card.Subtitle>{this.texts[index-1]}</Card.Subtitle>*/}
-                        {/*                        /!*<Card.Text>*!/*/}
-                        {/*                        /!*    Keywords: {this.keywords[index-1]}*!/*/}
-                        {/*                        /!*</Card.Text>*!/*/}
-                        {/*                    </Card.Body>*/}
-                        {/*                    <ListGroup className="list-group-flush">*/}
-                        {/*                        <ListGroupItem>Keywords: {this.keywords[index-1]}</ListGroupItem>*/}
-                        {/*                        <ListGroupItem>Price: ${this.prices[index-1]}</ListGroupItem>*/}
-                        {/*                        <ListGroupItem>Color: {this.colors[index-1]}</ListGroupItem>*/}
-                        {/*                    </ListGroup>*/}
-                        {/*                    <Card.Body>*/}
-                        {/*                        <Card.Link href={this.urls[index-1]}>Product Link on Sephora.com</Card.Link>*/}
-                        {/*                    </Card.Body>*/}
-                        {/*                    /!*<Card.Footer>*!/*/}
-                        {/*                    /!*    <small className="text-muted">Last updated 3 mins ago</small>*!/*/}
-                        {/*                    /!*</Card.Footer>*!/*/}
-                        {/*                </Card>*/}
-                        {/*            ))}*/}
-
-                        {/*        </CardDeck>*/}
-                        {/*    </Row>*/}
-                        {/*    <Row>*/}
-                        {/*        <Button onClick={this.props.returnToSearch}>Back To Search</Button>*/}
-                        {/*    </Row>*/}
-                        {/*</Container>*/}
-                        {/*</Row>*/}
                     </Container>
                 </div> : null}
             </div>
