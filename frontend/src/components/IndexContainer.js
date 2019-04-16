@@ -28,7 +28,6 @@ class IndexContainer extends Component {
         this.handleChangeSkinType = this.handleChangeSkinType.bind(this);
         this.handleChangeHairColor = this.handleChangeHairColor.bind(this);
         this.handleChangeEyeColor = this.handleChangeEyeColor.bind(this);
-        this.onClickSubmit = this.handleSubmit.bind(this);
 
         this.options = [['Dark', 'Light', 'Ebony', 'Deep', 'Medium', 'Porcelain', 'Fair', 'Olive', 'Tan'],
             ['Dry', 'Normal', 'Oily', 'Combination'],
@@ -45,7 +44,7 @@ class IndexContainer extends Component {
         this.setState({
             submitDisabled: !viable,
             submitColor: viable? 'light' : 'light'
-        });
+        }, () => console.log(this.state));
     }
 
     handleChangeCharacteristicInput(event) {
@@ -84,25 +83,6 @@ class IndexContainer extends Component {
         }, this.checkViability);
     }
 
-    handleSubmit() {
-        let characteristicInputs = this.state.characteristicInput.replace(', ', ' ')
-            .replace(',', ' ')
-            .split(' ');
-        let brandInputs = this.state.brandInput.replace(', ', ' ')
-            .replace(',', ' ')
-            .split(' ');
-
-        //TODO: connect to backend
-        let query = 'Your query is: \n' +
-              '-- Keywords: ' + characteristicInputs + '\n' +
-              '-- Brand: ' + brandInputs + '\n' +
-              '-- Skin tone: ' + this.state.skinTone + '\n' +
-              '-- Skin type: ' + this.state.skinType + '\n' +
-              '-- Hair color: ' + this.state.hairColor + '\n' +
-              '-- Eye color: ' + this.state.eyeColor;
-        this.props.onClick(query)
-    }
-
     onFormSubmit = e => {
         e.preventDefault();
         let characteristicInputs = this.state.characteristicInput.replace(', ', ' ')
@@ -121,7 +101,7 @@ class IndexContainer extends Component {
             '-- Hair color: ' + this.state.hairColor + '\n' +
             '-- Eye color: ' + this.state.eyeColor;
         if (!this.state.submitDisabled)
-            this.props.onClick(query)
+            this.props.onClick(this.state.characteristicInput)
     };
 
     render() {
