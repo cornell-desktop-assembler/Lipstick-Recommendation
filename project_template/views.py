@@ -29,6 +29,14 @@ class FrontendAppView(View):
                 """,
                 status=501,
             )
+
+def search(request):
+    result = sim_text_matcher.keyword(request.GET.get("keyword"))
+    result_json = []
+    for tuple in result:
+        result_json.append({"name":tuple[0],"score":tuple[1]})
+    return JsonResponse(result_json)
+
 #
 #     # if not query:
 #     #     output_message = ''
