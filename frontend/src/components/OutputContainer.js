@@ -64,7 +64,7 @@ class OutputContainer extends Component {
                             </Col>
                         </Row>
 
-                        { this.showDummy ?
+                        { this.state.showDummy ?
                         <Row>
                         <Container>
                             <Row>
