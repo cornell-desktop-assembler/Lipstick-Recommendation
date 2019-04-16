@@ -1,0 +1,1 @@
+https://api.bazaarvoice.com/data/reviews.json?Filter=ProductId%3AP393411&Limit=100&Offset=400&Include=Products%2CComments&Stats=Reviews&passkey=rwbw526r2e7spptqd2qzbkp7&apiversion=5.4
