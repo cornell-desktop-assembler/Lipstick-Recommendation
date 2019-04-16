@@ -1,7 +1,13 @@
 import numpy as np
 import pandas as pd
 
-df = pd.read_csv("all sephora.csv", encoding="utf-8", index_col=0)
+import os
+data_path = os.path.join(
+    os.path.dirname(os.path.realpath(__file__)),
+    "all sephora.csv"
+)
+
+df = pd.read_csv(data_path, encoding="utf-8", index_col=0)
 
 from collections import defaultdict
 
