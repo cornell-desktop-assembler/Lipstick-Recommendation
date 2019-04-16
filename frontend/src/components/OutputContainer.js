@@ -30,15 +30,18 @@ class OutputContainer extends Component {
             <div>
                 { this.props.showOutput ?
                 <div className="output-parent">
+                  <Container>
                     {this.props.response.map(listing => (
                         <Row>
-                            <Card style={{ width: '100rem' }}>
+                            <Card style={{ width: '100em' }}>
                                 <Card.Body>
                                     <Card.Title>Score: {listing['score']}; SKU: {listing['name']}</Card.Title>
                                 </Card.Body>
                             </Card>
                         </Row>
                     ))}
+
+                    </Container>
 
                     {/*<Container>*/}
                     {/*    <Row>*/}

@@ -13,30 +13,32 @@ class App extends Component {
             showOutput: false,
             names: [],
             scores: [],
-            response: null
+            response: []
         };
         this.submitQuery = this.submitQuery.bind(this);
         this.returnToSearch = this.returnToSearch.bind(this);
+        this.sendToBackend = this.sendToBackend.bind(this);
     }
 
     submitQuery(query) {
         // alert(query);
-        this.setState({
-            showOutput: true
-            // }, this.scrollToOutput);
-        }, () => this.sendToBackend(query));
+        this.sendToBackend(query);
     }
 
     sendToBackend(query) {
+      // console.log(query)
         axios.get('/search/?keyword='+query)
             .then(response => this.setState(
-                {response: response}
-                )
+                {response: response['data']}, () => this.printResponse()
+              )
             );
     }
 
     printResponse() {
-        console.log(this.state.response)
+        // console.log(this.state.response)
+        this.setState(
+            {showOutput: true}, () => this.scrollToOutput()
+          )
     }
 
     scrollToOutput() {
