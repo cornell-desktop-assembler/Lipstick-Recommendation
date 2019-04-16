@@ -5,10 +5,19 @@ import CardDeck from 'react-bootstrap/CardDeck';
 import ListGroup from 'react-bootstrap/ListGroup';
 import ListGroupItem from 'react-bootstrap/ListGroupItem';
 import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import '../css/output.css'
 
 class OutputContainer extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            showDummy: false
+        }
+    }
+
     pictureUrls = ["https://www.sephora.com/productimages/sku/s2129922-main-zoom.jpg",
         "https://www.sephora.com/productimages/sku/s2012748-main-zoom.jpg",
         "https://www.sephora.com/productimages/sku/s1890623-main-zoom.jpg",
@@ -24,6 +33,11 @@ class OutputContainer extends Component {
     colors = ["4 Fuchsia Excentrique - soft raspberry", "Omi 107 - mid-tone rose", "Lovecraft - mauve pink nude", "Do Me Baby - chestnut rose"];
     keywords = ["super-slim", "luxurious", "long-wear", "cult-favorite"];
 
+    showDummy() {
+        this.setState({
+            showDummy: true
+        })
+    }
 
     render() {
         return (
@@ -32,19 +46,25 @@ class OutputContainer extends Component {
                 <div className="output-parent">
                     <Container>
                         <Row>
-                            <Container>
-                            {this.props.response.map(listing => (
-                                <Row>
-                                    <Card style={{ width: '100rem' }}>
-                                        <Card.Body>
-                                            <Card.Title>Score: {listing['score']}; SKU: {listing['name']}</Card.Title>
-                                        </Card.Body>
-                                    </Card>
-                                </Row>
-                            ))}
-
-                            </Container>
+                            <Col>
+                                <Container>
+                                {this.props.response.map(listing => (
+                                    <Row>
+                                        <Card style={{ width: '100rem' }}>
+                                            <Card.Body>
+                                                <Card.Title>Score: {listing['score']}; SKU: {listing['name']}</Card.Title>
+                                            </Card.Body>
+                                        </Card>
+                                    </Row>
+                                ))}
+                                </Container>
+                            </Col>
+                            <Col>
+                                <Button onClick={this.showDummy()}>dummy output</Button>
+                            </Col>
                         </Row>
+
+                        { this.showDummy ?
                         <Row>
                         <Container>
                             <Row>
@@ -79,7 +99,7 @@ class OutputContainer extends Component {
                                 <Button onClick={this.props.returnToSearch}>Back To Search</Button>
                             </Row>
                         </Container>
-                        </Row>
+                        </Row> : null}
                     </Container>
                 </div> : null}
             </div>
