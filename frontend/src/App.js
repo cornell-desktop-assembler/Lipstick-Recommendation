@@ -28,10 +28,9 @@ class App extends Component {
     }
 
     sendToBackend(query) {
-        console.log(query);
         axios.get('/search/?keyword='+query)
             .then(response => this.setState(
-                {response: response}, this.printResponse
+                {response: response}
                 )
             );
     }
@@ -71,7 +70,8 @@ class App extends Component {
                     <div>
                         <OutputContainer className="output" ref={(section) => { this.output = section; }}
                             showOutput = {this.state.showOutput}
-                            returnToSearch = {this.returnToSearch}/>
+                            returnToSearch = {this.returnToSearch}
+                            response = {this.state.response}/>
                     </div>
                 </body>
             </div>
