@@ -31,7 +31,6 @@ class Dropdowns extends Component {
                     {/*    </Dropdown>*/}
                     {/*))}*/}
 
-
                     <Dropdown as={ButtonGroup}>
                         <Dropdown.Toggle variant="primary" id="dropdown-basic">
                             Skin Tone: {this.props.skinTone}
@@ -73,7 +72,7 @@ class Dropdowns extends Component {
 
                     <Dropdown as={ButtonGroup}>
                         <Dropdown.Toggle variant="danger" id="dropdown-basic">
-                            Hair Color: {this.props.eyeColor}
+                            Eye Color: {this.props.eyeColor}
                         </Dropdown.Toggle>
                         <Dropdown.Menu flip={false} alignRight>
                             <Dropdown.Item eventKey="N/A" onSelect={this.props.onChangeEyeColor}>N/A</Dropdown.Item>

@@ -140,6 +140,7 @@ class IndexContainer extends Component {
                     <Row>
                         <Col>
                             <Button
+                                type="submit"
                                 disabled={this.state.submitDisabled}
                                 variant={this.state.submitColor}
                                 size="lg"
