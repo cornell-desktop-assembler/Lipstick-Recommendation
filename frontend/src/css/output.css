@@ -37,9 +37,13 @@ OutputContainer {
     max-width: 300px;
 }
 
-.Button {
-    margin-bottom: 20px
-    /*text-align: center;*/
-    /*margin-left: auto;*/
-    /*margin-right: auto;*/
+/*.Button {*/
+/*    margin-bottom: 20px*/
+/*    !*text-align: center;*!*/
+/*    !*margin-left: auto;*!*/
+/*    !*margin-right: auto;*!*/
+/*}*/
+
+.dummy {
+    margin-top: 800px
 }
