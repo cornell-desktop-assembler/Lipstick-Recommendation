@@ -22,7 +22,8 @@ class App extends Component {
 
     submitQuery(query) {
         // alert(query);
-        this.sendToBackend(query);
+        // this.sendToBackend(query);
+        this.printResponse()
     }
 
     sendToBackend(query) {
