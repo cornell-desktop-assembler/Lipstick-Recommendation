@@ -147,7 +147,6 @@ class IndexContainer extends Component {
                                 disabled={this.state.submitDisabled}
                                 variant={this.state.submitColor}
                                 size="lg"
-                                // onClick={this.onClickSubmit}
                             >Find your match!</Button>
                         </Col>
                     </Row>
