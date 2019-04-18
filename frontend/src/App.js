@@ -13,31 +13,33 @@ class App extends Component {
             showOutput: false,
             names: [],
             scores: [],
-            response: null
+            response: []
         };
         this.submitQuery = this.submitQuery.bind(this);
         this.returnToSearch = this.returnToSearch.bind(this);
+        this.sendToBackend = this.sendToBackend.bind(this);
     }
 
     submitQuery(query) {
         // alert(query);
-        this.setState({
-            showOutput: true
-            // }, this.scrollToOutput);
-        }, () => this.sendToBackend(query));
+        this.sendToBackend(query);
+        // this.printResponse()
     }
 
     sendToBackend(query) {
-        console.log(query);
+      // console.log(query)
         axios.get('/search/?keyword='+query)
             .then(response => this.setState(
-                {response: response}, this.printResponse
-                )
+                {response: response['data']}, () => this.printResponse()
+              )
             );
     }
 
     printResponse() {
-        console.log(this.state.response)
+        // console.log(this.state.response)
+        this.setState(
+            {showOutput: true}, () => this.scrollToOutput()
+          )
     }
 
     scrollToOutput() {
@@ -71,7 +73,8 @@ class App extends Component {
                     <div>
                         <OutputContainer className="output" ref={(section) => { this.output = section; }}
                             showOutput = {this.state.showOutput}
-                            returnToSearch = {this.returnToSearch}/>
+                            returnToSearch = {this.returnToSearch}
+                            response = {this.state.response}/>
                     </div>
                 </body>
             </div>

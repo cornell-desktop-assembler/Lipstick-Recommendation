@@ -7,12 +7,12 @@ from django.template import loader
 import logging
 
 from django.views.generic import View
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.conf import settings
 
 import os
 
-
+from comment import sim_text_matcher
 # Create your views here.
 class FrontendAppView(View):
     def get(self,request):
@@ -35,7 +35,7 @@ def search(request):
     result_json = []
     for tuple in result:
         result_json.append({"name":tuple[0],"score":tuple[1]})
-    return JsonResponse(result_json)
+    return JsonResponse(result_json, safe=False)
 
 #
 #     # if not query:

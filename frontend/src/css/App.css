@@ -34,7 +34,14 @@ body {
   color: white;
   /*overflow-y: scroll*/
   /*background-color: grey;*/
+  border-radius: 20px;
+  background-color: rgba(0,0,0,0.4);
   /*opacity: 0.6*/
+}
+
+.lip-opacity {
+  border-radius: 10px;
+  background-color: #5e5e5e;
 }
 
 .lip-title {
@@ -105,3 +112,8 @@ BrandInput {
 .cd-scrolling-bg {
   min-height: 100%;
 }
+
+Row {
+  margin-left: 30px
+}
+

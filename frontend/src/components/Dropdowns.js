@@ -32,7 +32,7 @@ class Dropdowns extends Component {
                     {/*))}*/}
 
                     <Dropdown as={ButtonGroup}>
-                        <Dropdown.Toggle variant="primary" id="dropdown-basic">
+                        <Dropdown.Toggle variant={this.props.validity[0]} id="dropdown-basic" className='dropdown-1'>
                             Skin Tone: {this.props.skinTone}
                         </Dropdown.Toggle>
                         <Dropdown.Menu flip={false} alignRight>
@@ -45,7 +45,7 @@ class Dropdowns extends Component {
                     </Dropdown>
 
                     <Dropdown as={ButtonGroup}>
-                        <Dropdown.Toggle variant="warning" id="dropdown-basic">
+                        <Dropdown.Toggle variant={this.props.validity[1]} id="dropdown-basic">
                             Skin Type: {this.props.skinType}
                         </Dropdown.Toggle>
                         <Dropdown.Menu flip={false} alignRight>
@@ -58,7 +58,7 @@ class Dropdowns extends Component {
                     </Dropdown>
 
                     <Dropdown as={ButtonGroup}>
-                        <Dropdown.Toggle variant="info" id="dropdown-basic">
+                        <Dropdown.Toggle variant={this.props.validity[2]} id="dropdown-basic">
                             Hair Color: {this.props.hairColor}
                         </Dropdown.Toggle>
                         <Dropdown.Menu flip={false} alignRight>
@@ -71,7 +71,7 @@ class Dropdowns extends Component {
                     </Dropdown>
 
                     <Dropdown as={ButtonGroup}>
-                        <Dropdown.Toggle variant="danger" id="dropdown-basic">
+                        <Dropdown.Toggle variant={this.props.validity[3]} id="dropdown-basic">
                             Eye Color: {this.props.eyeColor}
                         </Dropdown.Toggle>
                         <Dropdown.Menu flip={false} alignRight>
