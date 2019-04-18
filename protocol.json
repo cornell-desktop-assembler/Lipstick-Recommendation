@@ -1,0 +1,30 @@
+query = {
+    "keywords" : [ "kw1", "kw2", ...],
+    "brands" : [ "b1", "b2", ...] or [],
+    "skinTone" : "medium" or null,
+    "skinType" : "dry" or null,
+    "hairColor" : "black" or null,
+    "eyeColor" : "brown" or null,
+    "r" : "240" or "-1",
+    "g" : "155" or "-1",
+    "b" : "0" or "-1",
+}
+
+
+result = [
+    {
+        "rank" : "1",
+        "pid" : "P1234567",
+        "sku" : "0987654",
+        "brand" : "NARS",
+        "name" : "Velvet Matte Lipstick Pencil",
+        "code" : "Dolce Vita",
+        "keywords" : [ "kw1", "kw2", ...],
+        "price" : "$20.00",
+        "url" : "http://xxxxx.com/xxx/yyy",
+        "img_url" : "http://xxxxx.com/xxx/yyy/1.jpg",
+    },
+    {
+        ......
+    },
+]
