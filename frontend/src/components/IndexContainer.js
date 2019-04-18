@@ -20,7 +20,8 @@ class IndexContainer extends Component {
             hairColor: 'N/A',
             eyeColor: 'N/A',
             submitDisabled: true,
-            submitColor: 'light'
+            submitColor: 'light',
+            dropDownValidity: ["secondary", "secondary", "secondary", "secondary"]
         };
         this.handleChangeCharacteristicInput = this.handleChangeCharacteristicInput.bind(this);
         this.handleChangeBrandInput = this.handleChangeBrandInput.bind(this);
@@ -36,6 +37,12 @@ class IndexContainer extends Component {
     }
 
     checkViability() {
+        let newValidity = [];
+        newValidity[0] = this.state.skinTone === 'N/A'? "secondary" : "danger";
+        newValidity[1] = this.state.skinType === 'N/A'? "secondary" : "danger";
+        newValidity[2] = this.state.hairColor === 'N/A'? "secondary" : "danger";
+        newValidity[3] = this.state.eyeColor === 'N/A'? "secondary" : "danger";
+
         let viable = !(this.state.characteristicInput === '' &&
             this.state.skinTone === 'N/A' &&
             this.state.skinType === 'N/A' &&
@@ -43,8 +50,9 @@ class IndexContainer extends Component {
             this.state.eyeColor === 'N/A');
         this.setState({
             submitDisabled: !viable,
-            submitColor: viable? 'light' : 'light'
-        }, () => console.log(this.state));
+            submitColor: viable? 'light' : 'light',
+            dropDownValidity: newValidity
+        });
     }
 
     handleChangeCharacteristicInput(event) {
@@ -127,6 +135,7 @@ class IndexContainer extends Component {
                 <Row>
                     <Col>
                         <Dropdowns
+                            validity={this.state.dropDownValidity}
                             options={this.options}
                             skinTone={this.state.skinTone}
                             skinType={this.state.skinType}
