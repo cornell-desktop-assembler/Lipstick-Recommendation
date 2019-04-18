@@ -1,7 +1,14 @@
 import requests
 
+import json
+
+
 TEMPLATE_LIPSTICK = r"https://www.sephora.com/productimages/sku/s{sku}-main-Lhero.jpg"
 TEMPLATE_TRY_ON   = r"https://www.sephora.com/productimages/sku/s{sku}-av-0{x}-Lhero.jpg"
+
+
+with open("sku2desc.json", encoding="utf-8") as fin:
+    sku2desc = json.load(fin)
 
 def get_img_url_by_sku(sku):
     r = requests.get(TEMPLATE_LIPSTICK.format(sku=sku))
@@ -10,3 +17,6 @@ def get_img_url_by_sku(sku):
     else:
         return None
 
+
+def get_desc_by_sku(sku):
+    return sku2desc.get(sku, None)
