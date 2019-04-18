@@ -13,7 +13,8 @@ class App extends Component {
             showOutput: false,
             names: [],
             scores: [],
-            response: []
+            response: [],
+            showSpinner: false
         };
         this.submitQuery = this.submitQuery.bind(this);
         this.returnToSearch = this.returnToSearch.bind(this);
@@ -33,12 +34,18 @@ class App extends Component {
                 {response: response['data']}, () => this.printResponse()
               )
             );
+        this.setState({
+            showSpinner: true
+        })
     }
 
     printResponse() {
         // console.log(this.state.response)
         this.setState(
-            {showOutput: true}, () => this.scrollToOutput()
+            {
+                showOutput: true,
+                showSpinner: false
+            }, () => this.scrollToOutput()
           )
     }
 
@@ -74,7 +81,8 @@ class App extends Component {
                         <OutputContainer className="output" ref={(section) => { this.output = section; }}
                             showOutput = {this.state.showOutput}
                             returnToSearch = {this.returnToSearch}
-                            response = {this.state.response}/>
+                            response = {this.state.response}
+                            showSpinner = {this.state.showSpinner}/>
                     </div>
                 </body>
             </div>

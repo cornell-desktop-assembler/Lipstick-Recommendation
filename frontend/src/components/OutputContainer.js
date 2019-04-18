@@ -4,6 +4,7 @@ import Card from 'react-bootstrap/Card';
 import CardDeck from 'react-bootstrap/CardDeck';
 import ListGroup from 'react-bootstrap/ListGroup';
 import ListGroupItem from 'react-bootstrap/ListGroupItem';
+import Spinner from 'react-bootstrap/Spinner';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
@@ -42,38 +43,42 @@ class OutputContainer extends Component {
     render() {
         return (
             <div>
+                { this.props.showSpinner? <Spinner animation="grow" /> : null}
                 { this.props.showOutput ?
                 <div className="output-parent">
-                    <Container>
-                        <Row>
-                            <Col>
-                                <Container>
-                                {this.props.response.map(listing => (
-                                    <Row>
-                                        <Card style={{ width: '100rem' }}>
-                                            <Card.Body>
-                                                <Card.Title>Score: {listing['score']}; SKU: {listing['name']}</Card.Title>
-                                            </Card.Body>
-                                        </Card>
-                                    </Row>
-                                ))}
-                                </Container>
-                            </Col>
-                            {/*<Col>*/}
-                            {/*    <Button onClick={() => this.showDummy}>dummy output</Button>*/}
-                            {/*</Col>*/}
-                        </Row>
+                    {/*<Container>*/}
+                        {/*<Row>*/}
+                        {/*    <Col>*/}
+                        {/*        <Container>*/}
+                        {/*        {this.props.response.map(listing => (*/}
+                        {/*            <Row>*/}
+                        {/*                <Card style={{ width: '100rem' }}>*/}
+                        {/*                    <Card.Body>*/}
+                        {/*                        <Card.Title>Score: {listing['score']}; SKU: {listing['name']}</Card.Title>*/}
+                        {/*                    </Card.Body>*/}
+                        {/*                </Card>*/}
+                        {/*            </Row>*/}
+                        {/*        ))}*/}
+                        {/*        </Container>*/}
+                        {/*    </Col>*/}
+                        {/*    /!*<Col>*!/*/}
+                        {/*    /!*    <Button onClick={() => this.showDummy}>dummy output</Button>*!/*/}
+                        {/*    /!*</Col>*!/*/}
+                        {/*</Row>*/}
 
-                        <Row>
+                        {/*<Row>*/}
                             <Container>
                                 <Row>
-                                    <div  className='dummy'>
-                                    <CardDeck>
+                                    <div className='dummy'>
+                                        <CardDeck>
                                         {[1,2,3,4].map(index => (
                                             <Card style={{ width: '22rem' }}>
+                                                <Card.Header>
+                                                    <large className="text-muted">No. {index}</large>
+                                                </Card.Header>
                                                 <Card.Img variant="top" src={this.pictureUrls[index-1]} />
                                                 <Card.Body>
-                                                    <Card.Title>{index}. {this.titles[index-1]}</Card.Title>
+                                                    <Card.Title>{this.titles[index-1]}</Card.Title>
                                                     <Card.Subtitle>{this.texts[index-1]}</Card.Subtitle>
                                                     {/*<Card.Text>*/}
                                                     {/*    Keywords: {this.keywords[index-1]}*/}
@@ -87,22 +92,18 @@ class OutputContainer extends Component {
                                                 <Card.Body>
                                                     <Card.Link href={this.urls[index-1]}>Product Link on Sephora.com</Card.Link>
                                                 </Card.Body>
-                                                {/*<Card.Footer>*/}
-                                                {/*    <small className="text-muted">Last updated 3 mins ago</small>*/}
-                                                {/*</Card.Footer>*/}
                                             </Card>
                                         ))}
 
-                                    </CardDeck>
-                                    </div>
+                                        </CardDeck></div>
                                 </Row>
                                 <Row>
-                                    <Button onClick={this.props.returnToSearch}>Back To Search</Button>
+                                    <Button variant='light' onClick={this.props.returnToSearch}>Back To Search</Button>
                                 </Row>
                             </Container>
-                        </Row>
+                    {/*    </Row>*/}
 
-                    </Container>
+                    {/*</Container>*/}
                 </div> : null}
             </div>
         )
