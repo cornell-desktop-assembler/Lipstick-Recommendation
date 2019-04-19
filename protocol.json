@@ -8,6 +8,8 @@ query = {
     "r" : "240" or "-1",
     "g" : "155" or "-1",
     "b" : "0" or "-1",
+
+    "ingredient_kws" : [ "kw1", "kw2", ...] or [],
 }
 
 
@@ -23,6 +25,19 @@ result = [
         "price" : "$20.00",
         "url" : "http://xxxxx.com/xxx/yyy",
         "img_url" : "http://xxxxx.com/xxx/yyy/1.jpg",
+
+        "ingredients_result" : { "vegan" : true, "xxx" : false, ... }
+        "scores" : {
+             "color" : 3.8,
+             "weighted_rating" : 4.9,
+             "skinType_rating" : 4.2,
+             "skinTone_rating" : 4.5,
+             "hairColor_rating" : 4.7,
+             "eyeColor_rating" : 4.9,
+             "keywords" : 4.5,
+             "ingredients" : 5.0,
+         }
+                      
     },
     {
         ......
