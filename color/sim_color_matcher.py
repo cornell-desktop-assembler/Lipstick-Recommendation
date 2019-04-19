@@ -38,8 +38,10 @@ def euclidean_distances(rgb, comparing=u_):
 def knn_args_dist(rgb, k, comparing=u_):
     dist = euclidean_distances(rgb, comparing=comparing)
     sorted_args = np.argsort(dist)
-    return sorted_args[:k], dist[sorted_args[:k]]
-
+    if k is not None:
+        return sorted_args[:k], dist[sorted_args[:k]]
+    else:
+        return sorted_args, dist[sorted_args]
 
 def knn_sku(rgb, k, comparing=u_, i2id=i2sku):
     args, dists = knn_args_dist(rgb=rgb, k=k, comparing=comparing)
