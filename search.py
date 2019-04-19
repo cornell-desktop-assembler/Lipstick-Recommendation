@@ -13,6 +13,7 @@ def search(query, color_k=100, keywords_k=100, filter_k=100):
     eyeColor = query["eyeColor"]
     r, g, b = int(query["r"]), int(query["g"]), int(query["b"])
     rgb = np.array([r,g,b])
+    ingredient_kws = query["ingredient_kws"]
     
     # color
     color_result = sim_color_matcher.knn_sku(rgb, k=color_k)
@@ -34,8 +35,12 @@ def search(query, color_k=100, keywords_k=100, filter_k=100):
         d.update(desc_and_img.get_desc_by_sku(sku))
         # pid, brand, name, code, price, url
         d["img_url"] = desc_and_img.get_img_url_by_sku(sku)
+
         d["keywords"] = [] # TODO
-        result.add(d)
+
+
+
+        result.append(d)
         
     return result
         
