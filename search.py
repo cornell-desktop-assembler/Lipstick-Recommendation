@@ -4,6 +4,36 @@ from desc_and_img import desc_and_img
 
 import numpy as np
 
+import copy
+
+
+D = {
+        "rank"      : "",           # "1",
+        "pid"       : "",           # "P1234567",
+        "sku"       : "",           # "0987654",
+        "brand"     : "",           # "NARS",
+        "name"      : "",           # "Velvet Matte Lipstick Pencil",
+        "code"      : "",           # "Dolce Vita",
+        "keywords"  : [],           # [ "kw1", "kw2", ...],
+        "price"     : "",           # "$20.00",
+        "url"       : "",           # "http://xxxxx.com/xxx/yyy",
+        "img_url"   : "",           # "http://xxxxx.com/xxx/yyy/1.jpg",
+
+        "ingredients_result" : {},  # { "vegan" : True, "xxx" : false, ... }
+        "scores" : {
+             "color"            : -1, # 3.8,
+             "weighted_rating"  : -1, # 4.9,
+             "skinType_rating"  : -1, # 4.2,
+             "skinTone_rating"  : -1, # 4.5,
+             "hairColor_rating" : -1, # 4.7,
+             "eyeColor_rating"  : -1, # 4.9,
+             "keywords"         : -1, # 4.5,
+             "ingredients"      : -1, # 5.0,
+         }
+
+    }
+
+
 def search(query, color_k=100, keywords_k=100, filter_k=100):
     keywords = query["keywords"]
     brands = query["brands"]
@@ -29,7 +59,7 @@ def search(query, color_k=100, keywords_k=100, filter_k=100):
     result = []
     
     for i, sku in enumerate(skus):
-        d = {}
+        d = copy.deepcopy(D)
         d["rank"] = i
         d["sku"] = sku
         d.update(desc_and_img.get_desc_by_sku(sku))
