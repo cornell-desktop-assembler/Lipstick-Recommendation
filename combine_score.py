@@ -17,14 +17,14 @@ TOTAL = COLOR + \
         INGREDIENTS
 
 
-def combine(color,
-            weighted_rating,
-            skinType_rating,
-            skinTone_rating,
-            hairColor_rating,
-            eyeColor_rating,
-            keywords,
-            ingredients):
+def combine(color: float,
+            weighted_rating: float,
+            skinType_rating: float,
+            skinTone_rating: float,
+            hairColor_rating: float,
+            eyeColor_rating: float,
+            keywords: float,
+            ingredients: float):
 
     return (
         color * COLOR +
