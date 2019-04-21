@@ -24,30 +24,53 @@ class App extends Component {
     submitQuery(query) {
         // alert(query);
         this.sendToBackend(query);
-        // this.printResponse()
+        // this.printResponse(query)
     }
 
     sendToBackend(query) {
-      // console.log(query)
-        axios.get('/search/?keyword='+query)
-            .then(response => this.setState(
-                {response: response['data']}, () => this.printResponse()
-              )
-            );
-        this.setState({
-            showSpinner: true
-        })
+        let rgb = this.hexToRgb(query.desiredColor);
+        let params = {
+            keywords: query.characteristicInput,
+            brands: query.brandInput === [] ? [] : query.brandInput,
+            skinTone: query.skinTone === 'N/A' ? null : query.skinTone,
+            skinType: query.skinType === 'N/A' ? null : query.skinType,
+            eyeColor: query.eyeColor === 'N/A' ? null : query.eyeColor,
+            hairColor: query.hairColor === 'N/A' ? null : query.hairColor,
+            r: rgb.r,
+            g: rgb.g,
+            b: rgb.b,
+            ingredient_kws: []
+        };
+        console.log(params)
+        // axios.get('/search/?keyword='+query)
+        //     .then(response => this.setState(
+        //         {response: response['data']}, () => this.printResponse()
+        //       )
+        //     );
+        // this.setState({
+        //     showSpinner: true
+        // })
+        this.printResponse()
     }
 
-    printResponse() {
-        // console.log(this.state.response)
+    printResponse(query) {
         this.setState(
             {
                 showOutput: true,
-                showSpinner: false
+                showSpinner: true
             }, () => this.scrollToOutput()
           )
     }
+
+    hexToRgb(hex) {
+        let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result ? {
+            r: parseInt(result[1], 16),
+            g: parseInt(result[2], 16),
+            b: parseInt(result[3], 16)
+        } : null;
+    }
+
 
     scrollToOutput() {
         scrollToComponent(this.output, { align: 'top',  duration: 300});
@@ -72,7 +95,8 @@ class App extends Component {
                     <div className="top lip-background cd-fixed-bg cd-fixed-bg--1" ref={(section) => { this.top = section; }}>
                         <div className="lip-opacity">
                             <div className="lip-container" style={{marginTop: 3.5 + 'em'}}>
-                                <img src={require('./images/title.png')} />
+                                <img src={require('./images/title.png')} className="title"/>
+                                {/*<h1>LIPSTICKER</h1>*/}
                                 <IndexContainer onClick={this.submitQuery}/>
                             </div>
                         </div>

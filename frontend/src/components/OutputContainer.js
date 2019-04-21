@@ -43,7 +43,6 @@ class OutputContainer extends Component {
     render() {
         return (
             <div>
-                { this.props.showSpinner? <Spinner animation="grow" /> : null}
                 { this.props.showOutput ?
                 <div className="output-parent">
                     {/*<Container>*/}
@@ -69,36 +68,41 @@ class OutputContainer extends Component {
                         {/*<Row>*/}
                             <Container>
                                 <Row>
-                                    <div className='dummy'>
-                                        <CardDeck>
-                                        {[1,2,3,4].map(index => (
-                                            <Card style={{ width: '22rem' }}>
-                                                <Card.Header>
-                                                    <large className="text-muted">No. {index}</large>
-                                                </Card.Header>
-                                                <Card.Img variant="top" src={this.pictureUrls[index-1]} />
-                                                <Card.Body>
-                                                    <Card.Title>{this.titles[index-1]}</Card.Title>
-                                                    <Card.Subtitle>{this.texts[index-1]}</Card.Subtitle>
-                                                    {/*<Card.Text>*/}
-                                                    {/*    Keywords: {this.keywords[index-1]}*/}
-                                                    {/*</Card.Text>*/}
-                                                </Card.Body>
-                                                <ListGroup className="list-group-flush">
-                                                    <ListGroupItem>Keywords: {this.keywords[index-1]}</ListGroupItem>
-                                                    <ListGroupItem>Price: ${this.prices[index-1]}</ListGroupItem>
-                                                    <ListGroupItem>Color: {this.colors[index-1]}</ListGroupItem>
-                                                </ListGroup>
-                                                <Card.Body>
-                                                    <Card.Link href={this.urls[index-1]}>Product Link on Sephora.com</Card.Link>
-                                                </Card.Body>
-                                            </Card>
-                                        ))}
+                                    <Col>
+                                        <div className='dummy'>
+                                            <CardDeck>
+                                            {[1,2,3,4].map(index => (
+                                                <Card style={{ width: '22rem' }}>
+                                                    <Card.Header>
+                                                        <large className="text-muted">No. {index}</large>
+                                                    </Card.Header>
+                                                    <Card.Img variant="top" src={this.pictureUrls[index-1]} />
+                                                    <Card.Body>
+                                                        <Card.Title>{this.titles[index-1]}</Card.Title>
+                                                        <Card.Subtitle>{this.texts[index-1]}</Card.Subtitle>
+                                                        {/*<Card.Text>*/}
+                                                        {/*    Keywords: {this.keywords[index-1]}*/}
+                                                        {/*</Card.Text>*/}
+                                                    </Card.Body>
+                                                    <ListGroup className="list-group-flush">
+                                                        <ListGroupItem>Keywords: {this.keywords[index-1]}</ListGroupItem>
+                                                        <ListGroupItem>Price: ${this.prices[index-1]}</ListGroupItem>
+                                                        <ListGroupItem>Color: {this.colors[index-1]}</ListGroupItem>
+                                                    </ListGroup>
+                                                    <Card.Body>
+                                                        <Card.Link href={this.urls[index-1]}>Product Link on Sephora.com</Card.Link>
+                                                    </Card.Body>
+                                                </Card>
+                                            ))}
 
-                                        </CardDeck></div>
+                                            </CardDeck>
+                                        </div>
+                                    </Col>
                                 </Row>
                                 <Row>
-                                    <Button variant='light' onClick={this.props.returnToSearch}>Back To Search</Button>
+                                    <Col>
+                                        <Button variant='light' onClick={this.props.returnToSearch}>Back To Search</Button>
+                                    </Col>
                                 </Row>
                             </Container>
                     {/*    </Row>*/}
