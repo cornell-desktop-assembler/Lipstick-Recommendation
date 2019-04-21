@@ -13,6 +13,9 @@ from django.conf import settings
 import os
 
 from comment import sim_text_matcher
+
+import search as search_module
+
 # Create your views here.
 class FrontendAppView(View):
     def get(self,request):
@@ -29,6 +32,13 @@ class FrontendAppView(View):
                 """,
                 status=501,
             )
+
+def search_full(request):
+    if request.method != "POST":
+        return HttpResponse("")
+    query_json = request.body
+
+    result = search_module.search(query=query_json)
 
 def search(request):
     result = sim_text_matcher.keyword(request.GET.get("keyword"))

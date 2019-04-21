@@ -30,7 +30,7 @@ def svd_of_vec(vec):
 
 
 def euclidean_distances(rgb, comparing=u_):
-    after_svd = svd_of_vec(rgb)[:2]
+    after_svd = svd_of_vec(rgb / 255)[:2]
     diff = comparing - after_svd
     return np.linalg.norm(diff, axis=1)
 
@@ -43,11 +43,19 @@ def knn_args_dist(rgb, k, comparing=u_):
     else:
         return sorted_args, dist[sorted_args]
 
+
 def knn_sku(rgb, k, comparing=u_, i2id=i2sku):
     args, dists = knn_args_dist(rgb=rgb, k=k, comparing=comparing)
-    return [(i2id[arg], dists[i]) for i, arg in enumerate(args)]
+    return {i2id[arg] : dists[i] for i, arg in enumerate(args)}
 
 
 def knn_rgb(rgb, k, comparing=u_):
     args, dists = knn_args_dist(rgb=rgb, k=k, comparing=comparing)
-    return [(raw[arg], dists[i]) for i, arg in enumerate(args)]
+    return {raw[arg] : dists[i] for i, arg in enumerate(args)}
+
+
+def knn_score(rgb, k=None, comparing=u_, i2id=i2sku):
+    args, dists = knn_args_dist(rgb=rgb, k=k, comparing=comparing)
+    scores = 5 / (dists + 1)
+    return {i2id[arg] : scores[i].item() for i, arg in enumerate(args)}
+
