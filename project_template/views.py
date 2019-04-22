@@ -10,11 +10,16 @@ from django.views.generic import View
 from django.http import HttpResponse, JsonResponse
 from django.conf import settings
 
+import json
 import os
 
 from comment import sim_text_matcher
 
 import search as search_module
+
+from django.views.decorators.csrf import csrf_exempt
+
+
 
 # Create your views here.
 class FrontendAppView(View):
@@ -33,17 +38,25 @@ class FrontendAppView(View):
                 status=501,
             )
 
+
+@csrf_exempt
 def search_full(request):
     if request.method != "POST":
         return HttpResponse("")
-    query_json = request.body
+    print(type(request.body))
+    print(request.body)
+    query_json = json.loads(request.body.decode("utf-8"))
 
-    k = query_json["k"]
+    k = int(query_json["k"])
 
-    result = search_module.search(query=query_json)
+    result = search_module.search(query=query_json)[:k]
 
-    return JsonResponse(result[:k], safe=False)
+    print(result)
 
+    return JsonResponse(result, safe=False)
+
+
+@csrf_exempt
 def search(request):
     result = sim_text_matcher.keyword(request.GET.get("keyword"))
     result_json = []
