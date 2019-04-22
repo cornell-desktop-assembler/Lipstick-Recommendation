@@ -38,7 +38,11 @@ def search_full(request):
         return HttpResponse("")
     query_json = request.body
 
+    k = query_json["k"]
+
     result = search_module.search(query=query_json)
+
+    return JsonResponse(result[:k], safe=False)
 
 def search(request):
     result = sim_text_matcher.keyword(request.GET.get("keyword"))
