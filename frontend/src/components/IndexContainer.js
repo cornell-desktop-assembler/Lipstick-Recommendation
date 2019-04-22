@@ -36,7 +36,7 @@ class IndexContainer extends Component {
 
         this.options = [['Dark', 'Light', 'Ebony', 'Deep', 'Medium', 'Porcelain', 'Fair', 'Olive', 'Tan'],
             ['Dry', 'Normal', 'Oily', 'Combination'],
-            ['Gray', 'Auburn', 'Blonde', 'Black', 'Black', 'Red', 'Brunette'],
+            ['Gray', 'Auburn', 'Blonde', 'Black', 'Red', 'Brunette'],
             ['Brown', 'Green', 'Blue', 'Gray', 'Hazel']]
     }
 
