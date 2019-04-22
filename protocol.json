@@ -10,6 +10,8 @@ query = {
     "b" : "0" or "-1",
 
     "ingredient_kws" : [ "kw1", "kw2", ...] or [],
+
+    "k" : "12",
 }
 
 

@@ -42,6 +42,7 @@ D = {
 
 def search(query, color_k=100, keywords_k=100, filter_k=100):
     keywords = query["keywords"]
+    review_score_result = review_score.review_score_sent_opt(keywords=keywords)
     brands = set(query["brands"])
     skinTone = query["skinTone"]
     skinType = query["skinType"]
@@ -74,14 +75,13 @@ def search(query, color_k=100, keywords_k=100, filter_k=100):
     
     for i, sku in enumerate(skus):
         # d = copy.deepcopy(D)
+        if sku not in color:
+            continue
+        if sku not in review_score_result:
+            continue
         desc_result = desc_and_img.get_desc_by_sku(sku)
         if desc_result is None:
             continue
-        if sku not in color:
-            continue
-        # review_score_result = review_score.review_score_all(keywords=keywords, mode="sentiment")
-        # if sku not in review_score_result:
-        #     continue
         d = {}
         d["rank"] = i
         d["sku"] = sku
@@ -101,8 +101,8 @@ def search(query, color_k=100, keywords_k=100, filter_k=100):
         scores["skinTone_rating"]   = label_rating[sku]["skinTone"]
         scores["hairColor_rating"]  = label_rating[sku]["hairColor"]
         scores["eyeColor_rating"]   = label_rating[sku]["eyeColor"]
-        # scores["keywords"]          = review_score_result[sku]
-        scores["keywords"]          = 0
+        scores["keywords"]          = review_score_result[sku]
+        # scores["keywords"]          = 0
         scores["ingredients"]       = 0 # TODO
         scores["overall"]           = combine_score.combine(
             color           = scores["color"],
