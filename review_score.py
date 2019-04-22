@@ -62,7 +62,9 @@ def review_score_all(keywords, mode = 'original'):
         else:
             score[product] = 0
 
-    return sorted(score.items(), key = lambda kv: kv[1],reverse = True)
+    return score
+
+    # return sorted(score.items(), key = lambda kv: kv[1],reverse = True)
 
 
 # print(review_score(['good']))
