@@ -57,9 +57,14 @@ class OutputContainer extends Component {
                                         <div className='dummy'>
                                             <CardDeck>
                                             {this.props.data.map(item => (
-                                                <Card style={{ width: '22rem' }} key={item["rank"]}>
+                                                <Card style={{ width: '23rem' }} key={item["rank"]}>
                                                     <Card.Header>
-                                                        <div className="text-muted">No. {item["rank"]}</div>
+                                                        <div className="text-muted">
+                                                                {item["rank"] === '1' ? <img src={require('../images/crown.png')} className="crown"/> : null}
+                                                            {/*<div>Icons made by <a href="https://www.flaticon.com/authors/good-ware" title="Good Ware">Good Ware</a> from <a href="https://www.flaticon.com/" 		    title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>*/}
+                                                                No. {item["rank"]}
+                                                            {item["rank"] === '1' ? <img src={require('../images/crown.png')} className="crown"/> : null}
+                                                        </div>
                                                     </Card.Header>
                                                     <Card.Img variant="top" src={item["img_url"]} />
                                                     <Card.Body>

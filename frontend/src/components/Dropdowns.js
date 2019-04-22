@@ -32,7 +32,7 @@ class Dropdowns extends Component {
                     {/*))}*/}
 
                     <Dropdown as={ButtonGroup}>
-                        <Dropdown.Toggle variant={this.props.validity[0]} id="dropdown-basic" className='dropdown-1'>
+                        <Dropdown.Toggle variant={this.props.validity[0]} id="dropdown-basic" className='dropdown-2'>
                             Skin Tone: {this.props.skinTone}
                         </Dropdown.Toggle>
                         <Dropdown.Menu flip={false} alignRight>
@@ -45,7 +45,7 @@ class Dropdowns extends Component {
                     </Dropdown>
 
                     <Dropdown as={ButtonGroup}>
-                        <Dropdown.Toggle variant={this.props.validity[1]} id="dropdown-basic">
+                        <Dropdown.Toggle variant={this.props.validity[1]} id="dropdown-basic" className='dropdown-2'>
                             Skin Type: {this.props.skinType}
                         </Dropdown.Toggle>
                         <Dropdown.Menu flip={false} alignRight>
@@ -58,7 +58,7 @@ class Dropdowns extends Component {
                     </Dropdown>
 
                     <Dropdown as={ButtonGroup}>
-                        <Dropdown.Toggle variant={this.props.validity[2]} id="dropdown-basic">
+                        <Dropdown.Toggle variant={this.props.validity[2]} id="dropdown-basic" className='dropdown-2'>
                             Hair Color: {this.props.hairColor}
                         </Dropdown.Toggle>
                         <Dropdown.Menu flip={false} alignRight>
@@ -71,7 +71,7 @@ class Dropdowns extends Component {
                     </Dropdown>
 
                     <Dropdown as={ButtonGroup}>
-                        <Dropdown.Toggle variant={this.props.validity[3]} id="dropdown-basic">
+                        <Dropdown.Toggle variant={this.props.validity[3]} id="dropdown-basic" className='dropdown-2'>
                             Eye Color: {this.props.eyeColor}
                         </Dropdown.Toggle>
                         <Dropdown.Menu flip={false} alignRight>
