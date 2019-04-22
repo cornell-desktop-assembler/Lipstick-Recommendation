@@ -41,7 +41,7 @@ D = {
 
 def search(query, color_k=100, keywords_k=100, filter_k=100):
     keywords = query["keywords"]
-    brands = query["brands"]
+    brands = set(query["brands"])
     skinTone = query["skinTone"]
     skinType = query["skinType"]
     hairColor = query["hairColor"]
@@ -114,7 +114,22 @@ def search(query, color_k=100, keywords_k=100, filter_k=100):
         d["scores"]  = scores
         result.append(d)
 
-    # TODO: brand
+    result = sorted(result, key=lambda item : item["scores"]["overall"], reverse=True)
 
     return result
+
+    # # TODO: brand
+    # brand_match = [item for item in result if item["brand"] in brands]
+    # brand_not_match = [item for item in result if item["brand"] not in brands]
+    # lucky_count = 0
+    # for i, item in enumerate(brand_not_match):
+    #     if item["scores"]["overall"] < brand_match[0]["scores"]["overall"]:
+    #         break
+    #     lucky_count += 1
+    #
+    # return {
+    #     "brand_match" : brand_match,
+    #     "brand_not_match" : brand_not_match,
+    #     "lucky_count" : lucky_count
+    # }
         
