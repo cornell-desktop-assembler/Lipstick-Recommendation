@@ -47,3 +47,14 @@ OutputContainer {
 .dummy {
     margin-top: 30px
 }
+
+.return {
+    background: url('../images/return4.png') center no-repeat;
+    background-size: cover;
+    position: fixed;
+    width: 70px;
+    height: 70px;
+    bottom: 66px;
+    margin-left: 42%;
+    border-width: 0px;
+}

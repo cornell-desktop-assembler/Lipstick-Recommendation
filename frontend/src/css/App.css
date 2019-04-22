@@ -101,7 +101,6 @@ BrandInput {
 
 .cd-fixed-bg.cd-fixed-bg--1 {
   background-image: url("../images/background-4.jpg");
-  /*background-color: black*/
 }
 
 .cd-scrolling-bg {
@@ -114,6 +113,10 @@ BrandInput {
 
 .title {
   width: 600px
+}
+
+.type-head {
+  overflow-y: scroll
 }
 
 

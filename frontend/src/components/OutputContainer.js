@@ -19,21 +19,6 @@ class OutputContainer extends Component {
         }
     }
 
-    pictureUrls = ["https://www.sephora.com/productimages/sku/s2129922-main-zoom.jpg",
-        "https://www.sephora.com/productimages/sku/s2012748-main-zoom.jpg",
-        "https://www.sephora.com/productimages/sku/s1890623-main-zoom.jpg",
-        "https://www.sephora.com/productimages/sku/s1900083-main-zoom.jpg"];
-    urls = ["https://www.sephora.com/product/rouge-pur-couture-matte-slim-lipstick-P436506?icid2=products%20grid:p436506:product",
-        "https://www.sephora.com/product/mattetrance-lipstick-P421813?icid2=products%20grid:p421813:product",
-        "https://www.sephora.com/product/everlasting-love-liquid-lipstick-P384954?icid2=products%20grid:p384954:product",
-        "https://www.sephora.com/product/velvet-matte-lip-pencil-P78834?icid2=products%20grid:p78834:product"
-    ];
-    titles = ["YVES SAINT LAURENT", "PAT MCGRATH LABS", "KAT VON D", "NARS"];
-    texts = ["Rouge Pur Couture The Slim Matte Lipstick", "MatteTrance™ Lipstick", "Everlasting Liquid Lipstick", "Velvet Matte Lipstick Pencil"];
-    prices = ["39.00", "38.00", "20.00", "27.00"];
-    colors = ["4 Fuchsia Excentrique - soft raspberry", "Omi 107 - mid-tone rose", "Lovecraft - mauve pink nude", "Do Me Baby - chestnut rose"];
-    keywords = ["super-slim", "luxurious", "long-wear", "cult-favorite"];
-
     showDummy() {
         this.setState({
             showDummy: !this.state.showDummy
@@ -71,26 +56,24 @@ class OutputContainer extends Component {
                                     <Col>
                                         <div className='dummy'>
                                             <CardDeck>
-                                            {[1,2,3,4].map(index => (
-                                                <Card style={{ width: '22rem' }}>
+                                            {this.props.data.map(item => (
+                                                <Card style={{ width: '22rem' }} key={item["rank"]}>
                                                     <Card.Header>
-                                                        <large className="text-muted">No. {index}</large>
+                                                        <div className="text-muted">No. {item["rank"]}</div>
                                                     </Card.Header>
-                                                    <Card.Img variant="top" src={this.pictureUrls[index-1]} />
+                                                    <Card.Img variant="top" src={item["img_url"]} />
                                                     <Card.Body>
-                                                        <Card.Title>{this.titles[index-1]}</Card.Title>
-                                                        <Card.Subtitle>{this.texts[index-1]}</Card.Subtitle>
-                                                        {/*<Card.Text>*/}
-                                                        {/*    Keywords: {this.keywords[index-1]}*/}
-                                                        {/*</Card.Text>*/}
+                                                        <Card.Title>{item["brand"]}</Card.Title>
+                                                        <Card.Subtitle>{item["name"]}</Card.Subtitle>
                                                     </Card.Body>
                                                     <ListGroup className="list-group-flush">
-                                                        <ListGroupItem>Keywords: {this.keywords[index-1]}</ListGroupItem>
-                                                        <ListGroupItem>Price: ${this.prices[index-1]}</ListGroupItem>
-                                                        <ListGroupItem>Color: {this.colors[index-1]}</ListGroupItem>
+                                                        <ListGroupItem key="score">Score: {item[""]}</ListGroupItem>
+                                                        <ListGroupItem key="keyword">Keywords: {item["keywords"]}</ListGroupItem>
+                                                        <ListGroupItem key="price">Price: {item["price"]}</ListGroupItem>
+                                                        <ListGroupItem key="color">Color: {item["code"]}</ListGroupItem>
                                                     </ListGroup>
                                                     <Card.Body>
-                                                        <Card.Link href={this.urls[index-1]}>Product Link on Sephora.com</Card.Link>
+                                                        <Card.Link href={item["url"]}>Product Link on Sephora.com</Card.Link>
                                                     </Card.Body>
                                                 </Card>
                                             ))}
@@ -99,16 +82,14 @@ class OutputContainer extends Component {
                                         </div>
                                     </Col>
                                 </Row>
-                                <Row>
-                                    <Col>
-                                        <Button variant='light' onClick={this.props.returnToSearch}>Back To Search</Button>
-                                    </Col>
-                                </Row>
                             </Container>
+                            <button onClick={this.props.returnToSearch} className="return" title="Back To Search">
+                            </button>
                     {/*    </Row>*/}
 
                     {/*</Container>*/}
-                </div> : null}
+                </div>
+                    : null}
             </div>
         )
     }

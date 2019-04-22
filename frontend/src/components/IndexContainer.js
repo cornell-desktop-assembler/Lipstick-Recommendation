@@ -21,7 +21,7 @@ class IndexContainer extends Component {
             skinType: 'N/A',
             hairColor: 'N/A',
             eyeColor: 'N/A',
-            desiredColor: 'FFFFFF',
+            desiredColor: null,
             submitDisabled: true,
             submitColor: 'light',
             dropDownValidity: ["secondary", "secondary", "secondary", "secondary"]
@@ -55,7 +55,7 @@ class IndexContainer extends Component {
             dropDownValidity: newValidity
         });
 
-        console.log(this.state);
+        // console.log(this.state);
     }
 
     handleChangeCharacteristicInput(arrays) {

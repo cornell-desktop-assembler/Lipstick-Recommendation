@@ -13,6 +13,8 @@ class BrandInput extends Component {
             <div>
                 <Form>
                     <Typeahead
+                        id="brands"
+                        maxResults={10}
                         value={this.props.data}
                         labelKey="brands"
                         multiple={true}
