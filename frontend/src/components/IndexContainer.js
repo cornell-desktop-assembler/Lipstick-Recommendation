@@ -196,22 +196,6 @@ class IndexContainer extends Component {
                                 Find your match!</Button>
                         </Col>
                     </Row>
-                    <Row>
-                        <Col>
-                            <div style={{marginTop: 1 + 'em'}} className='spinner'>
-
-                            {/*<Spinner*/}
-                            {/*    as="span"*/}
-                            {/*    animation="border"*/}
-                            {/*    role="status"*/}
-                            {/*    size="lg"*/}
-                            {/*    aria-hidden="true"*/}
-                            {/*/>*/}
-                            {/*&nbsp; Loading...*/}
-
-                            </div>
-                        </Col>
-                    </Row>
                 </div>
 
 
