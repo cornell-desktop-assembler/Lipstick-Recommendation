@@ -7,7 +7,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Form from "react-bootstrap/Form";
-import '../css/inputs.css'
+import '../css/App.css'
 
 class ColorInput extends Component {
 
@@ -28,13 +28,13 @@ class ColorInput extends Component {
     render() {
         const { show, target } = this.state;
         return (
-            <span>
+            <div className="color-input">
                 <Button
                     ref={this.attachRef}
                     onClick={() => this.setState({ show: !show })}
                     variant={'light'}
                 >
-                    Change Desired Lipstick Color (Optional)
+                    Desired color (optional)
                 <div className="colorExample" style={{background: this.state.color}}>
 
                 </div>
@@ -47,7 +47,7 @@ class ColorInput extends Component {
                         </Tooltip>
                     )}
                 </Overlay>
-            </span>
+            </div>
         )
     }
 }

@@ -4,12 +4,15 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Spinner from 'react-bootstrap/Spinner';
+import InputGroup from 'react-bootstrap/InputGroup';
+import FormControl from 'react-bootstrap/FormControl';
 import Dropdowns from './Dropdowns.js'
 import CharacteristicInput from './CharacteristicInput.js'
 import ColorInput from './ColorInput.js'
 import BrandInput from './BrandInput.js'
 import '../css/App.css'
 import Button from "react-bootstrap/Button";
+import Dropdown from "react-bootstrap/Dropdown";
 
 class IndexContainer extends Component {
     constructor(props) {
@@ -24,7 +27,8 @@ class IndexContainer extends Component {
             desiredColor: null,
             submitDisabled: true,
             submitColor: 'light',
-            dropDownValidity: ["secondary", "secondary", "secondary", "secondary"]
+            dropDownValidity: ["secondary", "secondary", "secondary", "secondary"],
+            k: "10"
         };
         this.handleChangeCharacteristicInput = this.handleChangeCharacteristicInput.bind(this);
         this.handleChangeBrandInput = this.handleChangeBrandInput.bind(this);
@@ -33,6 +37,7 @@ class IndexContainer extends Component {
         this.handleChangeHairColor = this.handleChangeHairColor.bind(this);
         this.handleChangeEyeColor = this.handleChangeEyeColor.bind(this);
         this.handleDesiredColor = this.handleDesiredColor.bind(this);
+        this.handleChangeK = this.handleChangeK.bind(this);
 
         this.options = [['Dark', 'Light', 'Ebony', 'Deep', 'Medium', 'Porcelain', 'Fair', 'Olive', 'Tan'],
             ['Dry', 'Normal', 'Oily', 'Combination'],
@@ -100,6 +105,12 @@ class IndexContainer extends Component {
         }, this.checkViability);
     }
 
+    handleChangeK(eventKey) {
+        this.setState({
+            k: eventKey
+        }, this.checkViability);
+    }
+
     onFormSubmit = e => {
         e.preventDefault();
 
@@ -125,6 +136,31 @@ class IndexContainer extends Component {
                             data={this.state.brandInput}
                             onChange={this.handleChangeBrandInput}
                         />
+                    </Col>
+                    <Col>
+                        <div className='page-select'>
+                            <InputGroup>
+                                <InputGroup.Prepend variant='light'>
+                                    <InputGroup.Text>Show at most</InputGroup.Text>
+                                </InputGroup.Prepend>
+                                    <Dropdown>
+                                        <Dropdown.Toggle variant='light' id="dropdown-basic" className='dropdown-1'>
+                                            {this.state.k}
+                                        </Dropdown.Toggle>
+                                        <Dropdown.Menu flip={false}>
+                                            <Dropdown.Item eventKey="1" onSelect={this.handleChangeK}>1</Dropdown.Item>
+                                            <Dropdown.Item eventKey="5" onSelect={this.handleChangeK}>5</Dropdown.Item>
+                                            <Dropdown.Item eventKey="10" onSelect={this.handleChangeK}>10</Dropdown.Item>
+                                            <Dropdown.Item eventKey="20" onSelect={this.handleChangeK}>20</Dropdown.Item>
+                                            <Dropdown.Item eventKey="50" onSelect={this.handleChangeK}>50</Dropdown.Item>
+                                            <Dropdown.Item eventKey="100" onSelect={this.handleChangeK}>100</Dropdown.Item>
+                                        </Dropdown.Menu>
+                                    </Dropdown>
+                                <InputGroup.Append>
+                                    <InputGroup.Text>results</InputGroup.Text>
+                                </InputGroup.Append>
+                            </InputGroup>
+                        </div>
                     </Col>
                     <Col>
                             <ColorInput

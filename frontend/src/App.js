@@ -92,6 +92,7 @@ class App extends Component {
             r: rgb ? rgb.r : null,
             g: rgb ? rgb.g : null,
             b: rgb ? rgb.b : null,
+            k: query.k,
             ingredient_kws: []
         };
         console.log(params);
