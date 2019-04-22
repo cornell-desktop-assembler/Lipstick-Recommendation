@@ -11,3 +11,4 @@ django-cors-headers
 djangorestframework
 numpy
 pandas
+requests
