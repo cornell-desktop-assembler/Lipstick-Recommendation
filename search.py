@@ -5,10 +5,12 @@ from color import sim_color_matcher
 from desc_and_img import desc_and_img
 
 import numpy as np
-
+import pickle
 import copy
 
 import combine_score
+import review_score
+
 
 
 D = {
@@ -40,7 +42,7 @@ D = {
 
 def search(query, color_k=100, keywords_k=100, filter_k=100):
     keywords = query["keywords"]
-    brands = query["brands"]
+    brands = set(query["brands"])
     skinTone = query["skinTone"]
     skinType = query["skinType"]
     hairColor = query["hairColor"]
@@ -62,16 +64,25 @@ def search(query, color_k=100, keywords_k=100, filter_k=100):
     weighted_rating = weighted_rating_module.get_weighted_rating()
 
     
+
     # assume there will be a list of skus
-    skus = []
-    
+    with open("sku_set.pkl", "rb") as fin:
+        skus = pickle.load(fin)
+
+
     result = []
     
     for i, sku in enumerate(skus):
-        d = copy.deepcopy(D)
+        # d = copy.deepcopy(D)
+        desc_result = desc_and_img.get_desc_by_sku(sku)
+        if desc_result is None:
+            continue
+        if sku not in color:
+            continue
+        d = {}
         d["rank"] = i
         d["sku"] = sku
-        d.update(desc_and_img.get_desc_by_sku(sku))
+        d.update(desc_result)
         # pid, brand, name, code, price, url
         d["img_url"] = desc_and_img.get_img_url_by_sku(sku)
 
@@ -87,15 +98,15 @@ def search(query, color_k=100, keywords_k=100, filter_k=100):
         scores["skinTone_rating"]   = label_rating[sku]["skinTone"]
         scores["hairColor_rating"]  = label_rating[sku]["hairColor"]
         scores["eyeColor_rating"]   = label_rating[sku]["eyeColor"]
-        scores["keywords"]          = 0 # TODO
+        scores["keywords"]          = review_score.review_score_all(keywords=keywords, mode="sentiment") # TODO
         scores["ingredients"]       = 0 # TODO
         scores["overall"]           = combine_score.combine(
             color           = scores["color"],
             weighted_rating = scores["weighted_rating"],
-            skinType_rating = scores["skinType_rating"],
-            skinTone_rating = scores["skinTone_rating"],
-            hairColor_rating = scores["hairColor_rating"],
-            eyeColor_rating = scores["eyeColor_rating"],
+            skinType_rating = scores["skinType_rating"][skinType],
+            skinTone_rating = scores["skinTone_rating"][skinTone],
+            hairColor_rating = scores["hairColor_rating"][hairColor],
+            eyeColor_rating = scores["eyeColor_rating"][eyeColor],
             keywords        = scores["keywords"],
             ingredients     = scores["ingredients"]
         )
@@ -103,6 +114,23 @@ def search(query, color_k=100, keywords_k=100, filter_k=100):
 
         d["scores"]  = scores
         result.append(d)
-        
+
+    result = sorted(result, key=lambda item : item["scores"]["overall"], reverse=True)
+
     return result
+
+    # # TODO: brand
+    # brand_match = [item for item in result if item["brand"] in brands]
+    # brand_not_match = [item for item in result if item["brand"] not in brands]
+    # lucky_count = 0
+    # for i, item in enumerate(brand_not_match):
+    #     if item["scores"]["overall"] < brand_match[0]["scores"]["overall"]:
+    #         break
+    #     lucky_count += 1
+    #
+    # return {
+    #     "brand_match" : brand_match,
+    #     "brand_not_match" : brand_not_match,
+    #     "lucky_count" : lucky_count
+    # }
         
