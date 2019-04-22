@@ -3,8 +3,10 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
+import Spinner from 'react-bootstrap/Spinner';
 import Dropdowns from './Dropdowns.js'
 import CharacteristicInput from './CharacteristicInput.js'
+import ColorInput from './ColorInput.js'
 import BrandInput from './BrandInput.js'
 import '../css/App.css'
 import Button from "react-bootstrap/Button";
@@ -13,12 +15,13 @@ class IndexContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            characteristicInput: '',
-            brandInput: '',
+            characteristicInput: [],
+            brandInput: [],
             skinTone: 'N/A',
             skinType: 'N/A',
             hairColor: 'N/A',
             eyeColor: 'N/A',
+            desiredColor: null,
             submitDisabled: true,
             submitColor: 'light',
             dropDownValidity: ["secondary", "secondary", "secondary", "secondary"]
@@ -29,10 +32,11 @@ class IndexContainer extends Component {
         this.handleChangeSkinType = this.handleChangeSkinType.bind(this);
         this.handleChangeHairColor = this.handleChangeHairColor.bind(this);
         this.handleChangeEyeColor = this.handleChangeEyeColor.bind(this);
+        this.handleDesiredColor = this.handleDesiredColor.bind(this);
 
         this.options = [['Dark', 'Light', 'Ebony', 'Deep', 'Medium', 'Porcelain', 'Fair', 'Olive', 'Tan'],
             ['Dry', 'Normal', 'Oily', 'Combination'],
-            ['Gray', 'Auburn', 'Blonde', 'Black', 'Black', 'Red', 'Brunette'],
+            ['Gray', 'Auburn', 'Blonde', 'Black', 'Red', 'Brunette'],
             ['Brown', 'Green', 'Blue', 'Gray', 'Hazel']]
     }
 
@@ -43,27 +47,26 @@ class IndexContainer extends Component {
         newValidity[2] = this.state.hairColor === 'N/A'? "secondary" : "danger";
         newValidity[3] = this.state.eyeColor === 'N/A'? "secondary" : "danger";
 
-        let viable = !(this.state.characteristicInput === '' &&
-            this.state.skinTone === 'N/A' &&
-            this.state.skinType === 'N/A' &&
-            this.state.hairColor === 'N/A' &&
-            this.state.eyeColor === 'N/A');
+        let viable = !(this.state.characteristicInput === '');
+        // let viable = true;
         this.setState({
             submitDisabled: !viable,
             submitColor: viable? 'light' : 'light',
             dropDownValidity: newValidity
         });
+
+        // console.log(this.state);
     }
 
-    handleChangeCharacteristicInput(event) {
+    handleChangeCharacteristicInput(arrays) {
         this.setState({
-            characteristicInput: event.target.value
+            characteristicInput: arrays
         }, this.checkViability);
     }
 
-    handleChangeBrandInput(event) {
+    handleChangeBrandInput(arrays) {
         this.setState({
-            brandInput: event.target.value
+            brandInput: arrays
         }, this.checkViability);
     }
 
@@ -91,25 +94,17 @@ class IndexContainer extends Component {
         }, this.checkViability);
     }
 
+    handleDesiredColor(color) {
+        this.setState({
+            desiredColor: color.hex
+        }, this.checkViability);
+    }
+
     onFormSubmit = e => {
         e.preventDefault();
-        let characteristicInputs = this.state.characteristicInput.replace(', ', ' ')
-            .replace(',', ' ')
-            .split(' ');
-        let brandInputs = this.state.brandInput.replace(', ', ' ')
-            .replace(',', ' ')
-            .split(' ');
 
-        //TODO: connect to backend
-        let query = 'Your query is: \n' +
-            '-- Keywords: ' + characteristicInputs + '\n' +
-            '-- Brand: ' + brandInputs + '\n' +
-            '-- Skin tone: ' + this.state.skinTone + '\n' +
-            '-- Skin type: ' + this.state.skinType + '\n' +
-            '-- Hair color: ' + this.state.hairColor + '\n' +
-            '-- Eye color: ' + this.state.eyeColor;
         if (!this.state.submitDisabled)
-            this.props.onClick(this.state.characteristicInput)
+            this.props.onClick(this.state)
     };
 
     render() {
@@ -131,6 +126,11 @@ class IndexContainer extends Component {
                             onChange={this.handleChangeBrandInput}
                         />
                     </Col>
+                    <Col>
+                            <ColorInput
+                                desiredColor = {this.state.desiredColor}
+                                onChange={this.handleDesiredColor}/>
+                    </Col>
                 </Row>
                 <Row>
                     <Col>
@@ -148,7 +148,7 @@ class IndexContainer extends Component {
                         />
                     </Col>
                 </Row>
-                <div style={{marginTop: 5.5 + 'em', marginBottom: 5.5 + 'em'}}>
+                <div style={{marginTop: 3.5 + 'em', marginBottom: 2 + 'em'}}>
                     <Row>
                         <Col>
                             <Button
@@ -156,10 +156,29 @@ class IndexContainer extends Component {
                                 disabled={this.state.submitDisabled}
                                 variant={this.state.submitColor}
                                 size="lg"
-                            >Find your match!</Button>
+                            >
+                                Find your match!</Button>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <div style={{marginTop: 1 + 'em'}} className='spinner'>
+
+                            <Spinner
+                                as="span"
+                                animation="border"
+                                role="status"
+                                size="lg"
+                                aria-hidden="true"
+                            />
+                            &nbsp; Loading...
+
+                            </div>
                         </Col>
                     </Row>
                 </div>
+
+
                 </Form>
             </Container>
         );

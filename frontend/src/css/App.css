@@ -13,7 +13,8 @@ img {
 }
 
 body {
-  background-image: url("../images/background.jpg");
+  /*background-image: url("../images/background.jpg");*/
+  background-image: url("../images/background-4.jpg");
   background-color: #cccccc;
   background-position: center;
   background-repeat: no-repeat;
@@ -33,15 +34,9 @@ body {
   transform: translate(-50%, -50%);
   color: white;
   /*overflow-y: scroll*/
-  /*background-color: grey;*/
   border-radius: 20px;
-  background-color: rgba(0,0,0,0.4);
-  /*opacity: 0.6*/
-}
-
-.lip-opacity {
-  border-radius: 10px;
-  background-color: #5e5e5e;
+  border-width: 1px;
+  /*background-color: rgba(58,58,58,0.5);*/
 }
 
 .lip-title {
@@ -76,7 +71,6 @@ BrandInput {
   margin: 0 auto;
 }
 
-
 .form-text {
   text-shadow: 2px 2px 2px black;
   -webkit-text-fill-color: white; /* Will override color (regardless of order) */
@@ -106,14 +100,24 @@ BrandInput {
 }
 
 .cd-fixed-bg.cd-fixed-bg--1 {
-  background-image: url("../images/background.jpg");
+  background-image: url("../images/background-4.jpg");
 }
 
 .cd-scrolling-bg {
   min-height: 100%;
 }
 
-Row {
-  margin-left: 30px
+.spinner {
+  font-size: 1.6em
 }
+
+.title {
+  width: 600px
+}
+
+.type-head {
+  overflow-y: scroll
+}
+
+
 
