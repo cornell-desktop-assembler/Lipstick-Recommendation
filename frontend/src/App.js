@@ -4,6 +4,7 @@ import OutputContainer from './components/OutputContainer.js'
 import scrollToComponent from 'react-scroll-to-component'
 import axios from 'axios'
 import './css/App.css'
+import Spinner from "react-bootstrap/Spinner";
 
 class App extends Component {
     constructor(props) {
@@ -72,6 +73,7 @@ class App extends Component {
         this.submitQuery = this.submitQuery.bind(this);
         this.returnToSearch = this.returnToSearch.bind(this);
         this.sendToBackend = this.sendToBackend.bind(this);
+        this.sendToBackend2 = this.sendToBackend2.bind(this);
     }
 
     submitQuery(query) {
@@ -96,23 +98,30 @@ class App extends Component {
             ingredient_kws: []
         };
         console.log(params);
+        this.setState({
+            showSpinner: true
+        }, (params) => this.printResponse(params));
+
+        // this.setState({
+        //     showSpinner: true
+        // })
+        // this.printResponse()
+    }
+
+    sendToBackend2(query) {
         axios.post('/search/', query)
             .then(response => this.setState(
                 {response: response['data']}, () => this.printResponse()
             ).catch(function (error) {
                 console.log(error);
             }));
-        this.setState({
-            showSpinner: true
-        })
-        this.printResponse()
     }
 
-    printResponse(query) {
+    printResponse(params) {
         this.setState(
             {
                 showOutput: true,
-                showSpinner: true
+                // showSpinner: false
             }, () => this.scrollToOutput()
           )
     }
@@ -153,6 +162,19 @@ class App extends Component {
                             <div className="lip-container" style={{marginTop: 3.5 + 'em'}}>
                                 <img src={require('./images/title.png')} className="title"/>
                                 <IndexContainer onClick={this.submitQuery}/>
+                                { this.state.showSpinner ?
+                                    <div style={{marginTop: 1 + 'em'}} className='spinner'>
+                                        <Spinner
+                                            as="span"
+                                            animation="border"
+                                            role="status"
+                                            size="lg"
+                                            aria-hidden="true"
+                                        />
+                                        &nbsp; Loading...
+
+                                    </div>
+                                    : null}
                             </div>
                         </div>
                     </div>
@@ -162,7 +184,7 @@ class App extends Component {
                             returnToSearch = {this.returnToSearch}
                              data = {this.dummyData}
                             // data = {this.state.response}
-                            showSpinner = {this.state.showSpinner}/>
+                        />
                     </div>
                 </body>
             </div>
