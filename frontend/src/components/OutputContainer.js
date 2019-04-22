@@ -57,7 +57,7 @@ class OutputContainer extends Component {
                                                             {index === 0 ? <img src={require('../images/crown.png')} className="crown"/> : null}
                                                         {/*<div>Icons made by <a href="https://www.flaticon.com/authors/good-ware" title="Good Ware">Good Ware</a> from <a href="https://www.flaticon.com/" 		    title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>*/}
                                                             No. {index+1}
-                                                        {this.props.data[index]["rank"] === '1' ? <img src={require('../images/crown.png')} className="crown"/> : null}
+                                                        {index === 0 ? <img src={require('../images/crown.png')} className="crown"/> : null}
                                                     </div>
                                                 </Card.Header>
                                                 <Card.Img variant="top" src={this.props.data[index]["img_url"]} />
@@ -72,7 +72,7 @@ class OutputContainer extends Component {
                                                     <ListGroupItem key="price">Price: {this.props.data[index]["price"]}</ListGroupItem>
                                                 </ListGroup>
                                                 <Card.Body>
-                                                    <Card.Link href={index["url"]}>Product Link on Sephora.com</Card.Link>
+                                                    <Card.Link href={this.props.data[index]["url"]}>Product Link on Sephora.com</Card.Link>
                                                 </Card.Body>
                                             </Card>
                                             ))}
