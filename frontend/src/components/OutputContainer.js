@@ -67,7 +67,7 @@ class OutputContainer extends Component {
                                                 </Card.Body>
                                                 <ListGroup className="list-group-flush">
                                                     <ListGroupItem key="color">Color: {this.props.data[index]["code"]}</ListGroupItem>
-                                                    <ListGroupItem key="score">Score: {this.props.data[index]["scores"]["overall"]}</ListGroupItem>
+                                                    <ListGroupItem key="score">Score: {Number((this.props.data[index]["scores"]["overall"]).toFixed(2))}</ListGroupItem>
                                                     <ListGroupItem key="keyword">Keywords: {this.props.data[index]["keywords"]}</ListGroupItem>
                                                     <ListGroupItem key="price">Price: {this.props.data[index]["price"]}</ListGroupItem>
                                                 </ListGroup>
