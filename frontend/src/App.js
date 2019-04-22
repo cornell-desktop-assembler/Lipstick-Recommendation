@@ -100,7 +100,7 @@ class App extends Component {
         console.log(params);
         this.setState({
             showSpinner: true
-        }, (params) => this.printResponse(params));
+        }, (params) => this.sendToBackend2(params));
 
         // this.setState({
         //     showSpinner: true
@@ -117,11 +117,11 @@ class App extends Component {
             }));
     }
 
-    printResponse(params) {
+    printResponse() {
         this.setState(
             {
                 showOutput: true,
-                // showSpinner: false
+                showSpinner: false
             }, () => this.scrollToOutput()
           )
     }
@@ -182,7 +182,7 @@ class App extends Component {
                         <OutputContainer className="output" ref={(section) => { this.output = section; }}
                             showOutput = {this.state.showOutput}
                             returnToSearch = {this.returnToSearch}
-                             data = {this.dummyData}
+                             data = {this.state.data}
                             // data = {this.state.response}
                         />
                     </div>
