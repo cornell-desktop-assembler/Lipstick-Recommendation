@@ -56,6 +56,7 @@ class OutputContainer extends Component {
                                     <Col>
                                         <div className='dummy'>
                                             <CardDeck>
+                                                //
                                             {this.props.data.map(item => (
                                                 <Card style={{ width: '23rem' }} key={item["rank"]}>
                                                     <Card.Header>
