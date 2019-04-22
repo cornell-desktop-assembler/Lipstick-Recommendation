@@ -9,6 +9,7 @@ import pickle
 import copy
 
 import combine_score
+import review_score
 
 
 
@@ -97,7 +98,7 @@ def search(query, color_k=100, keywords_k=100, filter_k=100):
         scores["skinTone_rating"]   = label_rating[sku]["skinTone"]
         scores["hairColor_rating"]  = label_rating[sku]["hairColor"]
         scores["eyeColor_rating"]   = label_rating[sku]["eyeColor"]
-        scores["keywords"]          = 0 # TODO
+        scores["keywords"]          = review_score.review_score_all(keywords=keywords, mode="sentiment") # TODO
         scores["ingredients"]       = 0 # TODO
         scores["overall"]           = combine_score.combine(
             color           = scores["color"],
