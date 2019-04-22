@@ -100,7 +100,7 @@ class App extends Component {
         console.log(params);
         this.setState({
             showSpinner: true
-        }, (params) => this.sendToBackend2(params));
+        }, () => this.sendToBackend2(params));
 
         // this.setState({
         //     showSpinner: true
@@ -108,16 +108,20 @@ class App extends Component {
         // this.printResponse()
     }
 
-    sendToBackend2(query) {
-        axios.post('/search/', query)
-            .then(response => this.setState(
-                {response: response['data']}, () => this.printResponse()
+    sendToBackend2(params) {
+        console.log(params);
+        axios.post('/search/', params)
+            .then(response =>
+                this.setState(
+                {response: response['data']}, () => this.printResponse(response)
             ).catch(function (error) {
                 console.log(error);
             }));
     }
 
-    printResponse() {
+    printResponse(response) {
+        console.log(response);
+        console.log(this.state.response);
         this.setState(
             {
                 showOutput: true,
@@ -182,7 +186,7 @@ class App extends Component {
                         <OutputContainer className="output" ref={(section) => { this.output = section; }}
                             showOutput = {this.state.showOutput}
                             returnToSearch = {this.returnToSearch}
-                             data = {this.state.data}
+                             data = {this.state.response}
                             // data = {this.state.response}
                         />
                     </div>

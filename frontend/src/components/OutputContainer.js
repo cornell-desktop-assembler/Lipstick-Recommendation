@@ -54,9 +54,9 @@ class OutputContainer extends Component {
                                             <Card style={{ width: '23rem' }} key={this.props.data[index]["rank"]}>
                                                 <Card.Header>
                                                     <div className="text-muted">
-                                                            {this.props.data[index]["rank"] === '1' ? <img src={require('../images/crown.png')} className="crown"/> : null}
+                                                            {index === 0 ? <img src={require('../images/crown.png')} className="crown"/> : null}
                                                         {/*<div>Icons made by <a href="https://www.flaticon.com/authors/good-ware" title="Good Ware">Good Ware</a> from <a href="https://www.flaticon.com/" 		    title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>*/}
-                                                            No. {this.props.data[index]["rank"]}
+                                                            No. {index+1}
                                                         {this.props.data[index]["rank"] === '1' ? <img src={require('../images/crown.png')} className="crown"/> : null}
                                                     </div>
                                                 </Card.Header>
@@ -66,10 +66,10 @@ class OutputContainer extends Component {
                                                     <Card.Subtitle>{this.props.data[index]["name"]}</Card.Subtitle>
                                                 </Card.Body>
                                                 <ListGroup className="list-group-flush">
-                                                    <ListGroupItem key="score">Score: {this.props.data[index][""]}</ListGroupItem>
+                                                    <ListGroupItem key="color">Color: {this.props.data[index]["code"]}</ListGroupItem>
+                                                    <ListGroupItem key="score">Score: {this.props.data[index]["scores"]["overall"]}</ListGroupItem>
                                                     <ListGroupItem key="keyword">Keywords: {this.props.data[index]["keywords"]}</ListGroupItem>
                                                     <ListGroupItem key="price">Price: {this.props.data[index]["price"]}</ListGroupItem>
-                                                    <ListGroupItem key="color">Color: {this.props.data[index]["code"]}</ListGroupItem>
                                                 </ListGroup>
                                                 <Card.Body>
                                                     <Card.Link href={index["url"]}>Product Link on Sephora.com</Card.Link>
