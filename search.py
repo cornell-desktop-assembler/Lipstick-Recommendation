@@ -44,16 +44,22 @@ def search(query, color_k=100, keywords_k=100, filter_k=100):
     keywords = query["keywords"]
     review_score_result = review_score.review_score_sent_opt(keywords=keywords)
     brands = set(query["brands"])
-    skinTone = query["skinTone"]
-    skinType = query["skinType"]
-    hairColor = query["hairColor"]
-    eyeColor = query["eyeColor"]
-    r, g, b = int(query["r"]), int(query["g"]), int(query["b"])
-    rgb = np.array([r, g, b])
+    skinTone = query["skinTone"] if query["skinTone"] is not None else "nan"
+    skinType = query["skinType"] if query["skinType"] is not None else "nan"
+    hairColor = query["hairColor"] if query["hairColor"] is not None else "nan"
+    eyeColor = query["eyeColor"] if query["eyeColor"] is not None else "nan"
+    if query["r"] is not None:
+        r, g, b = int(query["r"]), int(query["g"]), int(query["b"])
+        rgb = np.array([r, g, b])
+    else:
+        rgb = None
     ingredient_kws = query["ingredient_kws"]
     
     # color
-    color = sim_color_matcher.knn_score(rgb)
+    if rgb is not None:
+        color = sim_color_matcher.knn_score(rgb)
+    else:
+        color = None
     # sku, dist = color_result[i][0], color_result[i][1]
     
     # TODO: keywords
@@ -75,7 +81,7 @@ def search(query, color_k=100, keywords_k=100, filter_k=100):
     
     for i, sku in enumerate(skus):
         # d = copy.deepcopy(D)
-        if sku not in color:
+        if color is not None and sku not in color:
             continue
         if sku not in review_score_result:
             continue
@@ -95,22 +101,22 @@ def search(query, color_k=100, keywords_k=100, filter_k=100):
 
         scores = {}
 
-        scores["color"]             = color[sku]
+        scores["color"]             = color[sku] if color is not None else None
         scores["weighted_rating"]   = weighted_rating[sku]
-        scores["skinType_rating"]   = label_rating[sku]["skinType"]
-        scores["skinTone_rating"]   = label_rating[sku]["skinTone"]
-        scores["hairColor_rating"]  = label_rating[sku]["hairColor"]
-        scores["eyeColor_rating"]   = label_rating[sku]["eyeColor"]
+        scores["skinType_rating"]   = label_rating[sku]["skinType"][skinType]
+        scores["skinTone_rating"]   = label_rating[sku]["skinTone"][skinTone]
+        scores["hairColor_rating"]  = label_rating[sku]["hairColor"][hairColor]
+        scores["eyeColor_rating"]   = label_rating[sku]["eyeColor"][eyeColor]
         scores["keywords"]          = review_score_result[sku]
         # scores["keywords"]          = 0
         scores["ingredients"]       = 0 # TODO
         scores["overall"]           = combine_score.combine(
             color           = scores["color"],
             weighted_rating = scores["weighted_rating"],
-            skinType_rating = scores["skinType_rating"][skinType],
-            skinTone_rating = scores["skinTone_rating"][skinTone],
-            hairColor_rating = scores["hairColor_rating"][hairColor],
-            eyeColor_rating = scores["eyeColor_rating"][eyeColor],
+            skinType_rating = scores["skinType_rating"],
+            skinTone_rating = scores["skinTone_rating"],
+            hairColor_rating = scores["hairColor_rating"],
+            eyeColor_rating = scores["eyeColor_rating"],
             keywords        = scores["keywords"],
             ingredients     = scores["ingredients"]
         )
