@@ -200,14 +200,14 @@ class IndexContainer extends Component {
                         <Col>
                             <div style={{marginTop: 1 + 'em'}} className='spinner'>
 
-                            <Spinner
-                                as="span"
-                                animation="border"
-                                role="status"
-                                size="lg"
-                                aria-hidden="true"
-                            />
-                            &nbsp; Loading...
+                            {/*<Spinner*/}
+                            {/*    as="span"*/}
+                            {/*    animation="border"*/}
+                            {/*    role="status"*/}
+                            {/*    size="lg"*/}
+                            {/*    aria-hidden="true"*/}
+                            {/*/>*/}
+                            {/*&nbsp; Loading...*/}
 
                             </div>
                         </Col>
