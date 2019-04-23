@@ -34,9 +34,14 @@ def euclidean_distances(rgb, comparing=u_):
     diff = comparing - after_svd
     return np.linalg.norm(diff, axis=1)
 
+def euclidean_distances_raw(rgb, comparing=raw):
+    print("DIST RAW")
+    diff = comparing - rgb
+    return np.linalg.norm(diff / 255, axis=1)
 
 def knn_args_dist(rgb, k, comparing=u_):
     dist = euclidean_distances(rgb, comparing=comparing)
+    # dist = euclidean_distances_raw(rgb, comparing=raw)
     sorted_args = np.argsort(dist)
     if k is not None:
         return sorted_args[:k], dist[sorted_args[:k]]
@@ -56,6 +61,8 @@ def knn_rgb(rgb, k, comparing=u_):
 
 def knn_score(rgb, k=None, comparing=u_, i2id=i2sku):
     args, dists = knn_args_dist(rgb=rgb, k=k, comparing=comparing)
-    scores = 5 / (dists + 1)
+    dists = dists / min(dists)
+    scores = 5 / dists
+    print(dists[:10])
     return {i2id[arg] : scores[i].item() for i, arg in enumerate(args)}
 

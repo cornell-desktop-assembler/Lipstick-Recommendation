@@ -98,7 +98,7 @@ def review_score_sent_opt(keywords):
                 WF = WF + 0
 
         if WF > 0:
-            score[product] = 1 + math.log(WF)
+            score[product] = math.log(WF + 1) / 6 * 5
         else:
             score[product] = 0
 

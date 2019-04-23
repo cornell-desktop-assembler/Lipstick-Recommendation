@@ -1,10 +1,10 @@
-COLOR            = 30
-WEIGHTED_RATING  = 10
-SKINTYPE_RATING  = 5
-SKINTONE_RATING  = 5
-HAIRCOLOR_RATING = 5
-EYECOLOR_RATING  = 5
-KEYWORDS         = 140
+COLOR            = 1000
+WEIGHTED_RATING  = 200
+SKINTYPE_RATING  = 25
+SKINTONE_RATING  = 25
+HAIRCOLOR_RATING = 25
+EYECOLOR_RATING  = 25
+KEYWORDS         = 400
 INGREDIENTS      = 10
 
 TOTAL = COLOR + \
@@ -17,14 +17,14 @@ TOTAL = COLOR + \
         INGREDIENTS
 
 WEIGHTS = {
-    "color" : 30,
-    "weighted_rating" : 10,
-    "skinType_rating" : 5,
-    "skinTone_rating" : 5,
-    "eyeColor_rating" : 5,
-    "hairColor_rating" : 5,
-    "keywords" : 30,
-    "ingredients" : 10
+    "color"             : 1000,
+    "weighted_rating"   : 200,
+    "skinType_rating"   : 25,
+    "skinTone_rating"   : 25,
+    "eyeColor_rating"   : 25,
+    "hairColor_rating"  : 25,
+    "keywords"          : 400,
+    "ingredients"       : 10
 }
 
 # def combine(color,

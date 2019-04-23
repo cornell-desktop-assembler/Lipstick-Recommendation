@@ -44,10 +44,10 @@ def search(query, color_k=100, keywords_k=100, filter_k=100):
     keywords = query["keywords"]
     review_score_result = review_score.review_score_sent_opt(keywords=keywords)
     brands = set(query["brands"])
-    skinTone = query["skinTone"] if query["skinTone"] is not None else "nan"
-    skinType = query["skinType"] if query["skinType"] is not None else "nan"
-    hairColor = query["hairColor"] if query["hairColor"] is not None else "nan"
-    eyeColor = query["eyeColor"] if query["eyeColor"] is not None else "nan"
+    skinTone = query["skinTone"].lower() if query["skinTone"] is not None else "nan"
+    skinType = query["skinType"].lower() if query["skinType"] is not None else "nan"
+    hairColor = query["hairColor"].lower() if query["hairColor"] is not None else "nan"
+    eyeColor = query["eyeColor"].lower() if query["eyeColor"] is not None else "nan"
     if query["r"] is not None:
         r, g, b = int(query["r"]), int(query["g"]), int(query["b"])
         rgb = np.array([r, g, b])
@@ -103,10 +103,10 @@ def search(query, color_k=100, keywords_k=100, filter_k=100):
 
         scores["color"]             = color[sku] if color is not None else None
         scores["weighted_rating"]   = weighted_rating[sku]
-        scores["skinType_rating"]   = label_rating[sku]["skinType"][skinType]
-        scores["skinTone_rating"]   = label_rating[sku]["skinTone"][skinTone]
-        scores["hairColor_rating"]  = label_rating[sku]["hairColor"][hairColor]
-        scores["eyeColor_rating"]   = label_rating[sku]["eyeColor"][eyeColor]
+        scores["skinType_rating"]   = label_rating[sku]["skinType"][skinType] * 5   # forget to upscale
+        scores["skinTone_rating"]   = label_rating[sku]["skinTone"][skinTone] * 5
+        scores["hairColor_rating"]  = label_rating[sku]["hairColor"][hairColor] * 5
+        scores["eyeColor_rating"]   = label_rating[sku]["eyeColor"][eyeColor] * 5
         scores["keywords"]          = review_score_result[sku]
         # scores["keywords"]          = 0
         scores["ingredients"]       = 0 # TODO
