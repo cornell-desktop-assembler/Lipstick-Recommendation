@@ -65,7 +65,7 @@ class OutputContainer extends Component {
                                         <CardDeck>
                                             {item.map(index => (
                                                 this.state.scoreDetailIndex[index] ?
-                                                        <Card style={{ width: '23rem', height: '50rem' }}>
+                                                        <Card style={{ width: '23rem'}}>
                                                             <Card.Header>
                                                                 <div className="text-muted">
                                                                     {index === 0 ? <img src={require('../images/crown.png')} className="crown"/> : null}
@@ -79,14 +79,14 @@ class OutputContainer extends Component {
                                                             <Card.Subtitle>{this.props.data[index]["name"]}</Card.Subtitle>
                                                             <Card.Body>
                                                                 <ListGroup className="list-group-flush">
-                                                                    <ListGroupItem>Overall Score: {Number((this.props.data[index]["scores"]["overall"]).toFixed(2))}</ListGroupItem>
-                                                                    <ListGroupItem>Color Score: {Number((this.props.data[index]["scores"]["color"]).toFixed(2))}</ListGroupItem>
-                                                                    <ListGroupItem>Keywords Score: {Number((this.props.data[index]["scores"]["keywords"]).toFixed(2))}</ListGroupItem>
-                                                                    <ListGroupItem>Weighted Score: {Number((this.props.data[index]["scores"]["weighted_rating"]).toFixed(2))}</ListGroupItem>
-                                                                    <ListGroupItem>Skin Type Score: {Number((this.props.data[index]["scores"]["skinType_rating"]).toFixed(2))}</ListGroupItem>
-                                                                    <ListGroupItem>Skin Tone Score: {Number((this.props.data[index]["scores"]["skinTone_rating"]).toFixed(2))}</ListGroupItem>
-                                                                    <ListGroupItem>Hair Color Score: {Number((this.props.data[index]["scores"]["hairColor_rating"]).toFixed(2))}</ListGroupItem>
-                                                                    <ListGroupItem>Eye Color Score: {Number((this.props.data[index]["scores"]["eyeColor_rating"]).toFixed(2))}</ListGroupItem>
+                                                                    <ListGroupItem>Overall Score: {Number(this.props.data[index]["scores"]["overall"]).toFixed(3)}</ListGroupItem>
+                                                                    <ListGroupItem>Color Score: {Number(this.props.data[index]["scores"]["color"]).toFixed(3)}</ListGroupItem>
+                                                                    <ListGroupItem>Keywords Score: {Number(this.props.data[index]["scores"]["keywords"]).toFixed(3)}</ListGroupItem>
+                                                                    <ListGroupItem>Weighted Score: {Number(this.props.data[index]["scores"]["weighted_rating"]).toFixed(3)}</ListGroupItem>
+                                                                    <ListGroupItem>Skin Type Score: {Number(this.props.data[index]["scores"]["skinType_rating"]).toFixed(3)}</ListGroupItem>
+                                                                    <ListGroupItem>Skin Tone Score: {Number(this.props.data[index]["scores"]["skinTone_rating"]).toFixed(3)}</ListGroupItem>
+                                                                    <ListGroupItem>Hair Color Score: {Number(this.props.data[index]["scores"]["hairColor_rating"]).toFixed(3)}</ListGroupItem>
+                                                                    <ListGroupItem>Eye Color Score: {Number(this.props.data[index]["scores"]["eyeColor_rating"]).toFixed(3)}</ListGroupItem>
                                                                     <ListGroupItem>
                                                                         <Button variant="info" onClick={() => this.showScoreDetail(index, false)}>Back</Button>
                                                                     </ListGroupItem>
@@ -94,7 +94,7 @@ class OutputContainer extends Component {
                                                             </Card.Body>
                                                         </Card> :
                                                         // or
-                                            <Card style={{ width: '23rem', height: '60rem'}} key={this.props.data[index]["rank"]}>
+                                            <Card style={{ width: '23rem'}} key={this.props.data[index]["rank"]}>
                                                 <Card.Header>
                                                     <div className="text-muted">
                                                             {index === 0 ? <img src={require('../images/crown.png')} className="crown"/> : null}
@@ -111,7 +111,7 @@ class OutputContainer extends Component {
                                                 <ListGroup className="list-group-flush">
                                                     <ListGroupItem key="color">Color: <b>{this.props.data[index]["code"]}</b></ListGroupItem>
                                                     <ListGroupItem key="score">
-                                                        Score: <b>{Number((this.props.data[index]["scores"]["overall"]).toFixed(2))} </b>
+                                                        Score: <b>{Number(this.props.data[index]["scores"]["overall"]).toFixed(3)} </b>
                                                         <Button
                                                             className = "detail-button"
                                                             variant="info"
