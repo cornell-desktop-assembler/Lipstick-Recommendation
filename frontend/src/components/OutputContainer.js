@@ -42,6 +42,9 @@ class OutputContainer extends Component {
 
     showScoreDetail(index, show) {
         let newArray = this.state.scoreDetailIndex;
+        if (this.props.initial) {
+            newArray = newArray.fill(false)
+        }
         newArray[index] = show;
         this.setState({
             scoreDetailIndex: newArray
