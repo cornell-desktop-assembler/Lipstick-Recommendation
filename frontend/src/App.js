@@ -100,7 +100,7 @@ class App extends Component {
         console.log(params);
         this.setState({
             showSpinner: true
-        }, () => this.printResponse(params));
+        }, () => this.sendToBackend2(params));
 
     }
 
@@ -181,8 +181,8 @@ class App extends Component {
                         <OutputContainer className="output" ref={(section) => { this.output = section; }}
                             showOutput = {this.state.showOutput}
                             returnToSearch = {this.returnToSearch}
-                             // data = {this.state.response}
-                            data = {this.dummyData}
+                             data = {this.state.response}
+                            // data = {this.dummyData}
                         />
                     </div>
                 </body>
