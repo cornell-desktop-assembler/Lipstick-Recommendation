@@ -97,7 +97,6 @@ class App extends Component {
             k: query.k,
             ingredient_kws: []
         };
-        console.log(params);
         this.setState({
             showSpinner: true
         }, () => this.sendToBackend2(params));
@@ -109,14 +108,13 @@ class App extends Component {
         axios.post('/search/', params)
             .then(response =>
                 this.setState(
-                {response: response['data']}, () => this.printResponse(response)
+                {response: response['data']}, () => this.printResponse()
             ).catch(function (error) {
                 console.log(error);
             }));
     }
 
-    printResponse(response) {
-        console.log(response);
+    printResponse() {
         console.log(this.state.response);
         this.setState(
             {

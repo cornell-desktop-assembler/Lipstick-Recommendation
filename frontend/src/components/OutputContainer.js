@@ -41,12 +41,11 @@ class OutputContainer extends Component {
     }
 
     showScoreDetail(index, show) {
-        console.log(index);
         let newArray = this.state.scoreDetailIndex;
         newArray[index] = show;
         this.setState({
             scoreDetailIndex: newArray
-        })
+        }, this.printState)
     }
 
     printState() {
@@ -66,7 +65,7 @@ class OutputContainer extends Component {
                                         <CardDeck>
                                             {item.map(index => (
                                                 this.state.scoreDetailIndex[index] ?
-                                                        <Card style={{ width: '23rem', height: '60rem' }}>
+                                                        <Card style={{ width: '23rem', height: '50rem' }}>
                                                             <Card.Header>
                                                                 <div className="text-muted">
                                                                     {index === 0 ? <img src={require('../images/crown.png')} className="crown"/> : null}
