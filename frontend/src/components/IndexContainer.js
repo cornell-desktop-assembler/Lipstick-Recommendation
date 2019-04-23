@@ -166,8 +166,8 @@ class IndexContainer extends Component {
                                         </Dropdown.Toggle>
                                         <Dropdown.Menu flip={false}>
                                             <Dropdown.Item eventKey="1" onSelect={this.handleChangeK}>1</Dropdown.Item>
-                                            <Dropdown.Item eventKey="4" onSelect={this.handleChangeK}>5</Dropdown.Item>
-                                            <Dropdown.Item eventKey="12" onSelect={this.handleChangeK}>10</Dropdown.Item>
+                                            <Dropdown.Item eventKey="4" onSelect={this.handleChangeK}>4</Dropdown.Item>
+                                            <Dropdown.Item eventKey="12" onSelect={this.handleChangeK}>12</Dropdown.Item>
                                             <Dropdown.Item eventKey="20" onSelect={this.handleChangeK}>20</Dropdown.Item>
                                             <Dropdown.Item eventKey="50" onSelect={this.handleChangeK}>50</Dropdown.Item>
                                             <Dropdown.Item eventKey="100" onSelect={this.handleChangeK}>100</Dropdown.Item>
