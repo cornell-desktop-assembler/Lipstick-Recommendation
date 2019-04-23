@@ -58,6 +58,10 @@ class OutputContainer extends Component {
         }
     }
 
+    showSephora(value) {
+        return (window.location.href = value)
+    }
+
     render() {
         return (
             <div>
@@ -72,7 +76,7 @@ class OutputContainer extends Component {
                                             {item.map(index => (
                                                 !this.state.scoreDetailIndex[index] || this.props.initial?
 
-                                                    <Card style={{ width: '23rem', height: '45rem'}} key={this.props.data[index]["rank"]}>
+                                                    <Card style={{ width: '23rem', height: '40rem'}} key={this.props.data[index]["rank"]}>
                                                         <Card.Header>
                                                             <div className="text-muted">
                                                                 {index === 0 ? <img src={require('../images/crown.png')} className="crown"/> : null}
@@ -97,16 +101,21 @@ class OutputContainer extends Component {
                                                                     onClick={() => this.showScoreDetail(index, true)}>Details</Button>
                                                             </ListGroupItem>
                                                             {/*<ListGroupItem key="keyword">Keywords: {this.props.data[index]["keywords"]}</ListGroupItem>*/}
-                                                            <ListGroupItem key="price">Price: <b>{this.props.data[index]["price"]}</b></ListGroupItem>
+                                                            <ListGroupItem key="price">Price: <b>{this.props.data[index]["price"]}</b>
+                                                                <Button
+                                                                    className = "shop-button"
+                                                                    variant="info"
+                                                                    size='sm'
+                                                                    onClick={() => this.showSephora(this.props.data[index]["url"])}>Shop</Button></ListGroupItem>
                                                         </ListGroup>
-                                                        <Card.Body>
-                                                            <Card.Link href={this.props.data[index]["url"]}>Product Link on Sephora.com</Card.Link>
-                                                        </Card.Body>
+                                                        {/*<Card.Body>*/}
+                                                        {/*    <Card.Link href={this.props.data[index]["url"]}>Product Link on Sephora.com</Card.Link>*/}
+                                                        {/*</Card.Body>*/}
                                                     </Card>
 
                                                     :
 
-                                                        <Card style={{ width: '23rem', height: '45rem'}}>
+                                                        <Card style={{ width: '23rem', height: '40rem'}}>
                                                             <Card.Header>
                                                                 <div className="text-muted">
                                                                     {index === 0 ? <img src={require('../images/crown.png')} className="crown"/> : null}

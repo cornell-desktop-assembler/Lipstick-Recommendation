@@ -53,7 +53,7 @@ class IndexContainer extends Component {
         newValidity[2] = this.state.hairColor === 'N/A'? "secondary" : "danger";
         newValidity[3] = this.state.eyeColor === 'N/A'? "secondary" : "danger";
 
-        let viable = !(this.state.characteristicInput === '');
+        let viable = !(this.state.characteristicInput === []);
         // let viable = true;
         this.setState({
             submitDisabled: !viable,

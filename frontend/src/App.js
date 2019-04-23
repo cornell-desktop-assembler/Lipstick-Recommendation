@@ -99,9 +99,12 @@ class App extends Component {
             k: query.k,
             ingredient_kws: []
         };
+        // this.setState({
+        //     showSpinner: true
+        // }, () => this.sendToBackend2(params));
         this.setState({
             showSpinner: true
-        }, () => this.sendToBackend2(params));
+        }, () => this.printResponse(params));
 
     }
 
@@ -161,7 +164,8 @@ class App extends Component {
                     />
                 </header>
                 <body>
-                    <a href="https://desktop-assembler.herokuapp.com/">1st Prototype</a>
+                <a href="https://desktop-assembler.herokuapp.com/">1st Prototype</a>
+                <a href="https://lipsticker-proto2.herokuapp.com/">2nd Prototype</a>
                     <div className="top lip-background cd-fixed-bg cd-fixed-bg--1" ref={(section) => { this.top = section; }}>
                         <div className="lip-opacity">
                             <div className="lip-container" style={{marginTop: 3.5 + 'em'}}>
@@ -189,8 +193,8 @@ class App extends Component {
                             returnToSearch = {this.returnToSearch}
                              initial = {this.state.initial}
                              updateInitial = {this.updateInitial}
-                             data = {this.state.response}
-                            // data = {this.dummyData}
+                             // data = {this.state.response}
+                            data = {this.dummyData}
                         />
                     </div>
                 </body>
