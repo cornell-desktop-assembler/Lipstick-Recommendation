@@ -43,15 +43,15 @@ class FrontendAppView(View):
 def search_full(request):
     if request.method != "POST":
         return HttpResponse("")
-    print(type(request.body))
-    print(request.body)
+    # print(type(request.body))
+    # print(request.body)
     query_json = json.loads(request.body.decode("utf-8"))
 
     k = int(query_json["k"])
 
     result = search_module.search(query=query_json)[:k]
 
-    print(result)
+    # print(result)
 
     return JsonResponse(result, safe=False)
 
