@@ -38,6 +38,7 @@ class IndexContainer extends Component {
         this.handleChangeEyeColor = this.handleChangeEyeColor.bind(this);
         this.handleDesiredColor = this.handleDesiredColor.bind(this);
         this.handleChangeK = this.handleChangeK.bind(this);
+        this.resetSearch = this.resetSearch.bind(this);
 
         this.options = [['Dark', 'Light', 'Ebony', 'Deep', 'Medium', 'Porcelain', 'Fair', 'Olive', 'Tan'],
             ['Dry', 'Normal', 'Oily', 'Combination'],
@@ -108,6 +109,22 @@ class IndexContainer extends Component {
     handleChangeK(eventKey) {
         this.setState({
             k: eventKey
+        }, this.checkViability);
+    }
+
+    resetSearch() {
+        this.setState({
+            characteristicInput: [],
+            brandInput: [],
+            skinTone: 'N/A',
+            skinType: 'N/A',
+            hairColor: 'N/A',
+            eyeColor: 'N/A',
+            desiredColor: null,
+            submitDisabled: true,
+            submitColor: 'light',
+            dropDownValidity: ["secondary", "secondary", "secondary", "secondary"],
+            k: "12"
         }, this.checkViability);
     }
 

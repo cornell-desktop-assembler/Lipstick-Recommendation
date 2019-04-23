@@ -29,8 +29,8 @@ class App extends Component {
                 "url": "https://www.sephora.com/product/rouge-pur-couture-matte-slim-lipstick-P436506?icid2=products%20grid:p436506:product",
                 "img_url": "https://www.sephora.com/productimages/sku/s2129922-main-zoom.jpg",
                 "ingredient_results": [],
-                "scores": {"color": 3.8, "weighted_rating": 4.9, "skinType_rating": 4.2, "skinTone_rating": 4.5, "hairColor_rating": 4.7,
-                    "eyeColor_rating": 4.9, "keywords": 4.5, "ingredients": 5.0, "overall": 4.0}},
+                "scores": {"color": "3.8", "weighted_rating": "4.9", "skinType_rating": "4.2", "skinTone_rating": "4.5", "hairColor_rating": "4.7",
+                    "eyeColor_rating": "4.9", "keywords": "4.5", "ingredients": "5.0", "overall": "4.0"}},
             {"rank": "2",
                 "pid": "P1234567",
                 "sku": "0987654",
@@ -42,8 +42,8 @@ class App extends Component {
                 "url": "https://www.sephora.com/product/mattetrance-lipstick-P421813?icid2=products%20grid:p421813:product",
                 "img_url": "https://www.sephora.com/productimages/sku/s2012748-main-zoom.jpg",
                 "ingredient_results": [],
-                "scores": {"color": 3.8, "weighted_rating": 4.9, "skinType_rating": 4.2, "skinTone_rating": 4.5, "hairColor_rating": 4.7,
-                    "eyeColor_rating": 4.9, "keywords": 4.5, "ingredients": 5.0, "overall": 4.0}},
+                "scores": {"color": "3.8", "weighted_rating": "4.9", "skinType_rating": "4.2", "skinTone_rating": "4.5", "hairColor_rating": "4.7",
+                    "eyeColor_rating": "4.9", "keywords": "4.5", "ingredients": "5.0", "overall": "4.0"}},
             {"rank": "3",
                 "pid": "P1234567",
                 "sku": "0987654",
@@ -55,8 +55,8 @@ class App extends Component {
                 "url": "https://www.sephora.com/product/everlasting-love-liquid-lipstick-P384954?icid2=products%20grid:p384954:product",
                 "img_url": "https://www.sephora.com/productimages/sku/s1890623-main-zoom.jpg",
                 "ingredient_results": [],
-                "scores": {"color": 3.8, "weighted_rating": 4.9, "skinType_rating": 4.2, "skinTone_rating": 4.5, "hairColor_rating": 4.7,
-                    "eyeColor_rating": 4.9, "keywords": 4.5, "ingredients": 5.0, "overall": 4.0}},
+                "scores": {"color": "3.8", "weighted_rating": "4.9", "skinType_rating": "4.2", "skinTone_rating": "4.5", "hairColor_rating": "4.7",
+                    "eyeColor_rating": "4.9", "keywords": "4.5", "ingredients": "5.0", "overall": "4.0"}},
             {"rank": "4",
                 "pid": "P1234567",
                 "sku": "0987654",
@@ -68,8 +68,8 @@ class App extends Component {
                 "url": "https://www.sephora.com/product/velvet-matte-lip-pencil-P78834?icid2=products%20grid:p78834:product",
                 "img_url": "https://www.sephora.com/productimages/sku/s1900083-main-zoom.jpg",
                 "ingredient_results": [],
-                "scores": {"color": 3.8, "weighted_rating": 4.9, "skinType_rating": 4.2, "skinTone_rating": 4.5, "hairColor_rating": 4.7,
-                    "eyeColor_rating": 4.9, "keywords": 4.5, "ingredients": 5.0, "overall": 4.0}}];
+                "scores": {"color": "3.8", "weighted_rating": "4.9", "skinType_rating": "4.2", "skinTone_rating": "4.5", "hairColor_rating": "4.7",
+                    "eyeColor_rating": "4.9", "keywords": "4.5", "ingredients": "5.0", "overall": "4.0"}}];
         this.submitQuery = this.submitQuery.bind(this);
         this.returnToSearch = this.returnToSearch.bind(this);
         this.sendToBackend = this.sendToBackend.bind(this);
@@ -99,7 +99,7 @@ class App extends Component {
         };
         this.setState({
             showSpinner: true
-        }, () => this.sendToBackend2(params));
+        }, () => this.printResponse(params));
 
     }
 
@@ -114,7 +114,7 @@ class App extends Component {
             }));
     }
 
-    printResponse() {
+    printResponse(params) {
         console.log(this.state.response);
         this.setState(
             {
@@ -179,8 +179,8 @@ class App extends Component {
                         <OutputContainer className="output" ref={(section) => { this.output = section; }}
                             showOutput = {this.state.showOutput}
                             returnToSearch = {this.returnToSearch}
-                             data = {this.state.response}
-                            // data = {this.dummyData}
+                             // data = {this.state.response}
+                            data = {this.dummyData}
                         />
                     </div>
                 </body>
