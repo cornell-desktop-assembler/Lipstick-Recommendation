@@ -66,7 +66,7 @@ class OutputContainer extends Component {
                                         <CardDeck>
                                             {item.map(index => (
                                                 this.state.scoreDetailIndex[index] ?
-                                                        <Card style={{ width: '20rem' }}>
+                                                        <Card style={{ width: '23rem', height: '60rem' }}>
                                                             <Card.Header>
                                                                 <div className="text-muted">
                                                                     {index === 0 ? <img src={require('../images/crown.png')} className="crown"/> : null}
@@ -95,7 +95,7 @@ class OutputContainer extends Component {
                                                             </Card.Body>
                                                         </Card> :
                                                         // or
-                                            <Card style={{ width: '23rem' }} key={this.props.data[index]["rank"]}>
+                                            <Card style={{ width: '23rem', height: '60rem'}} key={this.props.data[index]["rank"]}>
                                                 <Card.Header>
                                                     <div className="text-muted">
                                                             {index === 0 ? <img src={require('../images/crown.png')} className="crown"/> : null}
