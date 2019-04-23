@@ -49,7 +49,10 @@ class OutputContainer extends Component {
     }
 
     printState() {
-        console.log(this.state)
+        console.log(this.state);
+        if (this.props.initial) {
+            this.props.updateInitial()
+        }
     }
 
     render() {
@@ -64,7 +67,42 @@ class OutputContainer extends Component {
                                     {this.createArray(this.props.data.length).map(item => (
                                         <CardDeck>
                                             {item.map(index => (
-                                                this.state.scoreDetailIndex[index] ?
+                                                !this.state.scoreDetailIndex[index] || this.props.initial?
+
+                                                    <Card style={{ width: '23rem', height: '45rem'}} key={this.props.data[index]["rank"]}>
+                                                        <Card.Header>
+                                                            <div className="text-muted">
+                                                                {index === 0 ? <img src={require('../images/crown.png')} className="crown"/> : null}
+                                                                {/*<div>Icons made by <a href="https://www.flaticon.com/authors/good-ware" title="Good Ware">Good Ware</a> from <a href="https://www.flaticon.com/" 		    title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>*/}
+                                                                No. {index+1}
+                                                                {index === 0 ? <img src={require('../images/crown.png')} className="crown"/> : null}
+                                                            </div>
+                                                        </Card.Header>
+                                                        <Card.Img variant="top" src={this.props.data[index]["img_url"]} />
+                                                        <Card.Body>
+                                                            <Card.Title>{this.props.data[index]["brand"]}</Card.Title>
+                                                            <Card.Subtitle>{this.props.data[index]["name"]}</Card.Subtitle>
+                                                        </Card.Body>
+                                                        <ListGroup className="list-group-flush">
+                                                            <ListGroupItem key="color">Color: <b>{this.props.data[index]["code"]}</b></ListGroupItem>
+                                                            <ListGroupItem key="score">
+                                                                Score: <b>{Number(this.props.data[index]["scores"]["overall"]).toFixed(3)} </b>
+                                                                <Button
+                                                                    className = "detail-button"
+                                                                    variant="info"
+                                                                    size='sm'
+                                                                    onClick={() => this.showScoreDetail(index, true)}>Details</Button>
+                                                            </ListGroupItem>
+                                                            {/*<ListGroupItem key="keyword">Keywords: {this.props.data[index]["keywords"]}</ListGroupItem>*/}
+                                                            <ListGroupItem key="price">Price: <b>{this.props.data[index]["price"]}</b></ListGroupItem>
+                                                        </ListGroup>
+                                                        <Card.Body>
+                                                            <Card.Link href={this.props.data[index]["url"]}>Product Link on Sephora.com</Card.Link>
+                                                        </Card.Body>
+                                                    </Card>
+
+                                                    :
+
                                                         <Card style={{ width: '23rem', height: '45rem'}}>
                                                             <Card.Header>
                                                                 <div className="text-muted">
@@ -92,40 +130,11 @@ class OutputContainer extends Component {
                                                                     </ListGroupItem>
                                                                 </ListGroup>
                                                             </Card.Body>
-                                                        </Card> :
-                                                        // or
-                                            <Card style={{ width: '23rem', height: '45rem'}} key={this.props.data[index]["rank"]}>
-                                                <Card.Header>
-                                                    <div className="text-muted">
-                                                            {index === 0 ? <img src={require('../images/crown.png')} className="crown"/> : null}
-                                                        {/*<div>Icons made by <a href="https://www.flaticon.com/authors/good-ware" title="Good Ware">Good Ware</a> from <a href="https://www.flaticon.com/" 		    title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>*/}
-                                                            No. {index+1}
-                                                        {index === 0 ? <img src={require('../images/crown.png')} className="crown"/> : null}
-                                                    </div>
-                                                </Card.Header>
-                                                <Card.Img variant="top" src={this.props.data[index]["img_url"]} />
-                                                <Card.Body>
-                                                    <Card.Title>{this.props.data[index]["brand"]}</Card.Title>
-                                                    <Card.Subtitle>{this.props.data[index]["name"]}</Card.Subtitle>
-                                                </Card.Body>
-                                                <ListGroup className="list-group-flush">
-                                                    <ListGroupItem key="color">Color: <b>{this.props.data[index]["code"]}</b></ListGroupItem>
-                                                    <ListGroupItem key="score">
-                                                        Score: <b>{Number(this.props.data[index]["scores"]["overall"]).toFixed(3)} </b>
-                                                        <Button
-                                                            className = "detail-button"
-                                                            variant="info"
-                                                            size='sm'
-                                                            onClick={() => this.showScoreDetail(index, true)}>Details</Button>
-                                                    </ListGroupItem>
-                                                    {/*<ListGroupItem key="keyword">Keywords: {this.props.data[index]["keywords"]}</ListGroupItem>*/}
-                                                    <ListGroupItem key="price">Price: <b>{this.props.data[index]["price"]}</b></ListGroupItem>
-                                                </ListGroup>
-                                                <Card.Body>
-                                                    <Card.Link href={this.props.data[index]["url"]}>Product Link on Sephora.com</Card.Link>
-                                                </Card.Body>
-                                            </Card>
+                                                        </Card>
+
                                             ))}
+
+
                                         </CardDeck>
                                     ))}
                                 </div>

@@ -16,6 +16,7 @@ class App extends Component {
             scores: [],
             response: [],
             showSpinner: false,
+            initial: true
         };
         this.dummyData = [
             {"rank": "1",
@@ -74,6 +75,7 @@ class App extends Component {
         this.returnToSearch = this.returnToSearch.bind(this);
         this.sendToBackend = this.sendToBackend.bind(this);
         this.sendToBackend2 = this.sendToBackend2.bind(this);
+        this.updateInitial = this.updateInitial.bind(this);
     }
 
     submitQuery(query) {
@@ -108,7 +110,7 @@ class App extends Component {
         axios.post('/search/', params)
             .then(response =>
                 this.setState(
-                {response: response['data']}, () => this.printResponse()
+                {response: response['data'], initial: true}, () => this.printResponse()
             ).catch(function (error) {
                 console.log(error);
             }));
@@ -131,6 +133,12 @@ class App extends Component {
             g: parseInt(result[2], 16),
             b: parseInt(result[3], 16)
         } : null;
+    }
+
+    updateInitial() {
+        this.setState({
+            initial: false
+        })
     }
 
     scrollToOutput() {
@@ -179,6 +187,8 @@ class App extends Component {
                         <OutputContainer className="output" ref={(section) => { this.output = section; }}
                             showOutput = {this.state.showOutput}
                             returnToSearch = {this.returnToSearch}
+                             initial = {this.state.initial}
+                             updateInitial = {this.updateInitial}
                              data = {this.state.response}
                             // data = {this.dummyData}
                         />
