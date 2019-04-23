@@ -28,7 +28,7 @@ class IndexContainer extends Component {
             submitDisabled: true,
             submitColor: 'light',
             dropDownValidity: ["secondary", "secondary", "secondary", "secondary"],
-            k: "10"
+            k: "12"
         };
         this.handleChangeCharacteristicInput = this.handleChangeCharacteristicInput.bind(this);
         this.handleChangeBrandInput = this.handleChangeBrandInput.bind(this);
@@ -149,8 +149,8 @@ class IndexContainer extends Component {
                                         </Dropdown.Toggle>
                                         <Dropdown.Menu flip={false}>
                                             <Dropdown.Item eventKey="1" onSelect={this.handleChangeK}>1</Dropdown.Item>
-                                            <Dropdown.Item eventKey="5" onSelect={this.handleChangeK}>5</Dropdown.Item>
-                                            <Dropdown.Item eventKey="10" onSelect={this.handleChangeK}>10</Dropdown.Item>
+                                            <Dropdown.Item eventKey="4" onSelect={this.handleChangeK}>5</Dropdown.Item>
+                                            <Dropdown.Item eventKey="12" onSelect={this.handleChangeK}>10</Dropdown.Item>
                                             <Dropdown.Item eventKey="20" onSelect={this.handleChangeK}>20</Dropdown.Item>
                                             <Dropdown.Item eventKey="50" onSelect={this.handleChangeK}>50</Dropdown.Item>
                                             <Dropdown.Item eventKey="100" onSelect={this.handleChangeK}>100</Dropdown.Item>
