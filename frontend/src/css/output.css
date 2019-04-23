@@ -37,13 +37,6 @@ OutputContainer {
     max-width: 300px;
 }
 
-/*.Button {*/
-/*    margin-bottom: 20px*/
-/*    !*text-align: center;*!*/
-/*    !*margin-left: auto;*!*/
-/*    !*margin-right: auto;*!*/
-/*}*/
-
 .dummy {
     margin-top: 30px
 }
@@ -57,4 +50,16 @@ OutputContainer {
     bottom: 66px;
     margin-left: 42%;
     border-width: 0px;
+}
+
+.score-detail {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    /*margin-left: 12%;*/
+    /*border-width: 0px;*/
+}
+
+.detail-button {
+    margin-left: 10px;
 }
