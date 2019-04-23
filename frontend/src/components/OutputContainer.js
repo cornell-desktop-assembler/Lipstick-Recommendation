@@ -15,7 +15,8 @@ class OutputContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            showDummy: false
+            showDummy: false,
+            scoreDetailIndex: new Array(this.props.data.length).fill(false)
         }
     }
 
@@ -35,8 +36,21 @@ class OutputContainer extends Component {
             }
             arr.push(sub_arr)
         }
-        console.log(arr)
+
         return arr;
+    }
+
+    showScoreDetail(index, show) {
+        console.log(index);
+        let newArray = this.state.scoreDetailIndex;
+        newArray[index] = show;
+        this.setState({
+            scoreDetailIndex: newArray
+        })
+    }
+
+    printState() {
+        console.log(this.state)
     }
 
     render() {
@@ -51,6 +65,36 @@ class OutputContainer extends Component {
                                     {this.createArray(this.props.data.length).map(item => (
                                         <CardDeck>
                                             {item.map(index => (
+                                                this.state.scoreDetailIndex[index] ?
+                                                        <Card style={{ width: '20rem' }}>
+                                                            <Card.Header>
+                                                                <div className="text-muted">
+                                                                    {index === 0 ? <img src={require('../images/crown.png')} className="crown"/> : null}
+                                                                    {/*<div>Icons made by <a href="https://www.flaticon.com/authors/good-ware" title="Good Ware">Good Ware</a> from <a href="https://www.flaticon.com/" 		    title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>*/}
+                                                                    No. {index+1}
+                                                                    {index === 0 ? <img src={require('../images/crown.png')} className="crown"/> : null}
+                                                                </div>
+                                                            </Card.Header>
+                                                            <br/>
+                                                            <Card.Title>{this.props.data[index]["brand"]}</Card.Title>
+                                                            <Card.Subtitle>{this.props.data[index]["name"]}</Card.Subtitle>
+                                                            <Card.Body>
+                                                                <ListGroup className="list-group-flush">
+                                                                    <ListGroupItem>Overall Score: {Number((this.props.data[index]["scores"]["overall"]).toFixed(2))}</ListGroupItem>
+                                                                    <ListGroupItem>Color Score: {Number((this.props.data[index]["scores"]["color"]).toFixed(2))}</ListGroupItem>
+                                                                    <ListGroupItem>Keywords Score: {Number((this.props.data[index]["scores"]["keywords"]).toFixed(2))}</ListGroupItem>
+                                                                    <ListGroupItem>Weighted Score: {Number((this.props.data[index]["scores"]["weighted_rating"]).toFixed(2))}</ListGroupItem>
+                                                                    <ListGroupItem>Skin Type Score: {Number((this.props.data[index]["scores"]["skinType_rating"]).toFixed(2))}</ListGroupItem>
+                                                                    <ListGroupItem>Skin Tone Score: {Number((this.props.data[index]["scores"]["skinTone_rating"]).toFixed(2))}</ListGroupItem>
+                                                                    <ListGroupItem>Hair Color Score: {Number((this.props.data[index]["scores"]["hairColor_rating"]).toFixed(2))}</ListGroupItem>
+                                                                    <ListGroupItem>Eye Color Score: {Number((this.props.data[index]["scores"]["eyeColor_rating"]).toFixed(2))}</ListGroupItem>
+                                                                    <ListGroupItem>
+                                                                        <Button variant="info" onClick={() => this.showScoreDetail(index, false)}>Back</Button>
+                                                                    </ListGroupItem>
+                                                                </ListGroup>
+                                                            </Card.Body>
+                                                        </Card> :
+                                                        // or
                                             <Card style={{ width: '23rem' }} key={this.props.data[index]["rank"]}>
                                                 <Card.Header>
                                                     <div className="text-muted">
@@ -66,10 +110,17 @@ class OutputContainer extends Component {
                                                     <Card.Subtitle>{this.props.data[index]["name"]}</Card.Subtitle>
                                                 </Card.Body>
                                                 <ListGroup className="list-group-flush">
-                                                    <ListGroupItem key="color">Color: {this.props.data[index]["code"]}</ListGroupItem>
-                                                    <ListGroupItem key="score">Score: {Number((this.props.data[index]["scores"]["overall"]).toFixed(2))}</ListGroupItem>
-                                                    <ListGroupItem key="keyword">Keywords: {this.props.data[index]["keywords"]}</ListGroupItem>
-                                                    <ListGroupItem key="price">Price: {this.props.data[index]["price"]}</ListGroupItem>
+                                                    <ListGroupItem key="color">Color: <b>{this.props.data[index]["code"]}</b></ListGroupItem>
+                                                    <ListGroupItem key="score">
+                                                        Score: <b>{Number((this.props.data[index]["scores"]["overall"]).toFixed(2))} </b>
+                                                        <Button
+                                                            className = "detail-button"
+                                                            variant="info"
+                                                            size='sm'
+                                                            onClick={() => this.showScoreDetail(index, true)}>Details</Button>
+                                                    </ListGroupItem>
+                                                    {/*<ListGroupItem key="keyword">Keywords: {this.props.data[index]["keywords"]}</ListGroupItem>*/}
+                                                    <ListGroupItem key="price">Price: <b>{this.props.data[index]["price"]}</b></ListGroupItem>
                                                 </ListGroup>
                                                 <Card.Body>
                                                     <Card.Link href={this.props.data[index]["url"]}>Product Link on Sephora.com</Card.Link>
@@ -84,6 +135,7 @@ class OutputContainer extends Component {
                     </Container>
                     <button onClick={this.props.returnToSearch} className="return" title="Back To Search">
                     </button>
+
                 </div>
                     : null}
             </div>

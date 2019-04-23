@@ -15,7 +15,7 @@ class App extends Component {
             names: [],
             scores: [],
             response: [],
-            showSpinner: false
+            showSpinner: false,
         };
         this.dummyData = [
             {"rank": "1",
@@ -30,7 +30,7 @@ class App extends Component {
                 "img_url": "https://www.sephora.com/productimages/sku/s2129922-main-zoom.jpg",
                 "ingredient_results": [],
                 "scores": {"color": 3.8, "weighted_rating": 4.9, "skinType_rating": 4.2, "skinTone_rating": 4.5, "hairColor_rating": 4.7,
-                    "eyeColor_rating": 4.9, "keywords": 4.5, "ingredients": 5.0}},
+                    "eyeColor_rating": 4.9, "keywords": 4.5, "ingredients": 5.0, "overall": 4.0}},
             {"rank": "2",
                 "pid": "P1234567",
                 "sku": "0987654",
@@ -43,7 +43,7 @@ class App extends Component {
                 "img_url": "https://www.sephora.com/productimages/sku/s2012748-main-zoom.jpg",
                 "ingredient_results": [],
                 "scores": {"color": 3.8, "weighted_rating": 4.9, "skinType_rating": 4.2, "skinTone_rating": 4.5, "hairColor_rating": 4.7,
-                    "eyeColor_rating": 4.9, "keywords": 4.5, "ingredients": 5.0}},
+                    "eyeColor_rating": 4.9, "keywords": 4.5, "ingredients": 5.0, "overall": 4.0}},
             {"rank": "3",
                 "pid": "P1234567",
                 "sku": "0987654",
@@ -56,7 +56,7 @@ class App extends Component {
                 "img_url": "https://www.sephora.com/productimages/sku/s1890623-main-zoom.jpg",
                 "ingredient_results": [],
                 "scores": {"color": 3.8, "weighted_rating": 4.9, "skinType_rating": 4.2, "skinTone_rating": 4.5, "hairColor_rating": 4.7,
-                    "eyeColor_rating": 4.9, "keywords": 4.5, "ingredients": 5.0}},
+                    "eyeColor_rating": 4.9, "keywords": 4.5, "ingredients": 5.0, "overall": 4.0}},
             {"rank": "4",
                 "pid": "P1234567",
                 "sku": "0987654",
@@ -69,7 +69,7 @@ class App extends Component {
                 "img_url": "https://www.sephora.com/productimages/sku/s1900083-main-zoom.jpg",
                 "ingredient_results": [],
                 "scores": {"color": 3.8, "weighted_rating": 4.9, "skinType_rating": 4.2, "skinTone_rating": 4.5, "hairColor_rating": 4.7,
-                    "eyeColor_rating": 4.9, "keywords": 4.5, "ingredients": 5.0}}];
+                    "eyeColor_rating": 4.9, "keywords": 4.5, "ingredients": 5.0, "overall": 4.0}}];
         this.submitQuery = this.submitQuery.bind(this);
         this.returnToSearch = this.returnToSearch.bind(this);
         this.sendToBackend = this.sendToBackend.bind(this);
@@ -100,12 +100,8 @@ class App extends Component {
         console.log(params);
         this.setState({
             showSpinner: true
-        }, () => this.sendToBackend2(params));
+        }, () => this.printResponse(params));
 
-        // this.setState({
-        //     showSpinner: true
-        // })
-        // this.printResponse()
     }
 
     sendToBackend2(params) {
@@ -138,7 +134,6 @@ class App extends Component {
             b: parseInt(result[3], 16)
         } : null;
     }
-
 
     scrollToOutput() {
         scrollToComponent(this.output, { align: 'top',  duration: 300});
@@ -186,8 +181,8 @@ class App extends Component {
                         <OutputContainer className="output" ref={(section) => { this.output = section; }}
                             showOutput = {this.state.showOutput}
                             returnToSearch = {this.returnToSearch}
-                             data = {this.state.response}
-                            // data = {this.state.response}
+                             // data = {this.state.response}
+                            data = {this.dummyData}
                         />
                     </div>
                 </body>
