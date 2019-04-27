@@ -19,6 +19,7 @@ class BrandInput extends Component {
                         labelKey="brands"
                         multiple={true}
                         onChange={this.props.onChange}
+                        ref={(ref) => this._typeahead = ref}
                         options={['Dior',
                             'INC.redible',
                             'lilah b.',

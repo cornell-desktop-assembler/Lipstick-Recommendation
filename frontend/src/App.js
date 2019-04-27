@@ -79,13 +79,12 @@ class App extends Component {
     }
 
     submitQuery(query) {
-        // alert(query);
         this.sendToBackend(query);
         // this.printResponse(query)
     }
 
     sendToBackend(query) {
-        let rgb = this.hexToRgb(query.desiredColor);
+        let rgb = query.desiredColor === 'FFFFFF' ? null : this.hexToRgb(query.desiredColor);
         let params = {
             keywords: query.characteristicInput,
             brands: query.brandInput === [] ? [] : query.brandInput,

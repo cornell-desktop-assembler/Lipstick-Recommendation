@@ -20,6 +20,7 @@ class CharacteristicInput extends Component {
                         onChange={this.props.onChange}
                         options={this.keywords}
                         placeholder="Keyword(s)"
+                        ref={(ref) => this._typeahead = ref}
                     />
                     <Form.Group>
                         <Form.Text className="text" size="lg">

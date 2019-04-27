@@ -4,7 +4,6 @@ import Card from 'react-bootstrap/Card';
 import CardDeck from 'react-bootstrap/CardDeck';
 import ListGroup from 'react-bootstrap/ListGroup';
 import ListGroupItem from 'react-bootstrap/ListGroupItem';
-import Spinner from 'react-bootstrap/Spinner';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
@@ -129,14 +128,14 @@ class OutputContainer extends Component {
                                                             <Card.Subtitle>{this.props.data[index]["name"]}</Card.Subtitle>
                                                             <Card.Body>
                                                                 <ListGroup className="list-group-flush">
-                                                                    <ListGroupItem>Overall Score: {Number(this.props.data[index]["scores"]["overall"]).toFixed(3)}</ListGroupItem>
-                                                                    <ListGroupItem>Color Score: {Number(this.props.data[index]["scores"]["color"]).toFixed(3)}</ListGroupItem>
-                                                                    <ListGroupItem>Keywords Score: {Number(this.props.data[index]["scores"]["keywords"]).toFixed(3)}</ListGroupItem>
-                                                                    <ListGroupItem>Weighted Score: {Number(this.props.data[index]["scores"]["weighted_rating"]).toFixed(3)}</ListGroupItem>
-                                                                    <ListGroupItem>Skin Type Score: {Number(this.props.data[index]["scores"]["skinType_rating"]).toFixed(3)}</ListGroupItem>
-                                                                    <ListGroupItem>Skin Tone Score: {Number(this.props.data[index]["scores"]["skinTone_rating"]).toFixed(3)}</ListGroupItem>
-                                                                    <ListGroupItem>Hair Color Score: {Number(this.props.data[index]["scores"]["hairColor_rating"]).toFixed(3)}</ListGroupItem>
-                                                                    <ListGroupItem>Eye Color Score: {Number(this.props.data[index]["scores"]["eyeColor_rating"]).toFixed(3)}</ListGroupItem>
+                                                                    <ListGroupItem>Overall: {Number(this.props.data[index]["scores"]["overall"]).toFixed(3)}</ListGroupItem>
+                                                                    <ListGroupItem>Color: {Number(this.props.data[index]["scores"]["color"]).toFixed(3)}</ListGroupItem>
+                                                                    <ListGroupItem>Keywords: {Number(this.props.data[index]["scores"]["keywords"]).toFixed(3)}</ListGroupItem>
+                                                                    <ListGroupItem>Review: {Number(this.props.data[index]["scores"]["weighted_rating"]).toFixed(3)}</ListGroupItem>
+                                                                    <ListGroupItem>Skin Type: {Number(this.props.data[index]["scores"]["skinType_rating"]).toFixed(3)}</ListGroupItem>
+                                                                    <ListGroupItem>Skin Tone: {Number(this.props.data[index]["scores"]["skinTone_rating"]).toFixed(3)}</ListGroupItem>
+                                                                    <ListGroupItem>Hair Color: {Number(this.props.data[index]["scores"]["hairColor_rating"]).toFixed(3)}</ListGroupItem>
+                                                                    <ListGroupItem>Eye Color: {Number(this.props.data[index]["scores"]["eyeColor_rating"]).toFixed(3)}</ListGroupItem>
                                                                     <ListGroupItem>
                                                                         <Button variant="info" onClick={() => this.showScoreDetail(index, false)}>Back</Button>
                                                                     </ListGroupItem>
