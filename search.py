@@ -90,8 +90,6 @@ def search(query, color_k=100, keywords_k=100, filter_k=100):
             continue
         if sku not in review_score_result:
             continue
-        if sku not in ing_scores:
-            continue
         desc_result = desc_and_img.get_desc_by_sku(sku)
         if desc_result is None:
             continue
@@ -101,6 +99,13 @@ def search(query, color_k=100, keywords_k=100, filter_k=100):
         d.update(desc_result)
         # pid, brand, name, code, price, url
         d["img_url"] = desc_and_img.get_img_url_by_sku(sku)
+
+        pid = d["pid"]
+        if pid not in ing_scores:
+            continue
+
+        if d["brand"] not in brands:
+            continue
 
         d["keywords"] = [] # TODO
 
@@ -116,7 +121,7 @@ def search(query, color_k=100, keywords_k=100, filter_k=100):
         scores["eyeColor_rating"]   = label_rating[sku]["eyeColor"][eyeColor] * 5
         scores["keywords"]          = review_score_result[sku]
         # scores["keywords"]          = 0
-        scores["ingredients"]       = (1 - ing_scores[sku] / max_ing_score) * 5 
+        scores["ingredients"]       = (1 - ing_scores[pid] / max_ing_score) * 5 if max_ing_score > 0 else 5
         scores["overall"]           = combine_score.combine(
             color           = scores["color"],
             weighted_rating = scores["weighted_rating"],
@@ -134,16 +139,18 @@ def search(query, color_k=100, keywords_k=100, filter_k=100):
 
     result = sorted(result, key=lambda item : item["scores"]["overall"], reverse=True)
 
+    print(len(result))
+
     return result
 
     # TODO: brand
-    brand_match = [item for item in result if item["brand"] in brands]
-    brand_not_match = [item for item in result if item["brand"] not in brands]
-    lucky_count = 0
-    for i, item in enumerate(brand_not_match):
-        if item["scores"]["overall"] < brand_match[0]["scores"]["overall"]:
-            break
-        lucky_count += 1
+    # brand_match = [item for item in result if item["brand"] in brands]
+    # brand_not_match = [item for item in result if item["brand"] not in brands]
+    # lucky_count = 0
+    # for i, item in enumerate(brand_not_match):
+    #     if item["scores"]["overall"] < brand_match[0]["scores"]["overall"]:
+    #         break
+    #     lucky_count += 1
 
     # return brand_match
     

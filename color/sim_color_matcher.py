@@ -40,10 +40,10 @@ def euclidean_distances_raw(rgb, comparing=raw):
     return np.linalg.norm(diff / 255, axis=1)
 
 def knn_args_dist(rgb, k, comparing=u_):
-    dist_svd = euclidean_distances(rgb, comparing=comparing)
-    # dist_raw = euclidean_distances_raw(rgb, comparing=raw)
+    # dist_svd = euclidean_distances(rgb, comparing=comparing)
+    dist_raw = euclidean_distances_raw(rgb, comparing=raw)
     # dist = (dist_svd * 1 + dist_raw * 1) / 2
-    dist = dist_svd
+    dist = dist_raw
     sorted_args = np.argsort(dist)
     if k is not None:
         return sorted_args[:k], dist[sorted_args[:k]]
