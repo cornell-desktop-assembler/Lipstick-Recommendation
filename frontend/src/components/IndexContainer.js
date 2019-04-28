@@ -3,9 +3,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
-import Spinner from 'react-bootstrap/Spinner';
 import InputGroup from 'react-bootstrap/InputGroup';
-import FormControl from 'react-bootstrap/FormControl';
 import Dropdowns from './Dropdowns.js'
 import CharacteristicInput from './CharacteristicInput.js'
 import ColorInput from './ColorInput.js'
@@ -13,6 +11,8 @@ import BrandInput from './BrandInput.js'
 import '../css/App.css'
 import Button from "react-bootstrap/Button";
 import Dropdown from "react-bootstrap/Dropdown";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Popover from "react-bootstrap/Popover";
 
 class IndexContainer extends Component {
     constructor(props) {
@@ -24,10 +24,11 @@ class IndexContainer extends Component {
             skinType: 'N/A',
             hairColor: 'N/A',
             eyeColor: 'N/A',
-            desiredColor: null,
+            desiredColor: 'FFFFFF',
             submitDisabled: true,
             submitColor: 'light',
             dropDownValidity: ["secondary", "secondary", "secondary", "secondary"],
+            showPopover: false,
             k: "12"
         };
         this.handleChangeCharacteristicInput = this.handleChangeCharacteristicInput.bind(this);
@@ -38,6 +39,8 @@ class IndexContainer extends Component {
         this.handleChangeEyeColor = this.handleChangeEyeColor.bind(this);
         this.handleDesiredColor = this.handleDesiredColor.bind(this);
         this.handleChangeK = this.handleChangeK.bind(this);
+        this.resetSearch = this.resetSearch.bind(this);
+        this.disableClear = this.disableClear.bind(this);
 
         this.options = [['Dark', 'Light', 'Ebony', 'Deep', 'Medium', 'Porcelain', 'Fair', 'Olive', 'Tan'],
             ['Dry', 'Normal', 'Oily', 'Combination'],
@@ -52,11 +55,12 @@ class IndexContainer extends Component {
         newValidity[2] = this.state.hairColor === 'N/A'? "secondary" : "danger";
         newValidity[3] = this.state.eyeColor === 'N/A'? "secondary" : "danger";
 
-        let viable = !(this.state.characteristicInput === '');
+        console.log(this.state);
+        let viable = this.state.characteristicInput !== [] && this.state.characteristicInput.length !== 0;
         // let viable = true;
         this.setState({
             submitDisabled: !viable,
-            submitColor: viable? 'light' : 'light',
+            submitColor: viable? 'primary' : 'light',
             dropDownValidity: newValidity
         });
 
@@ -111,11 +115,45 @@ class IndexContainer extends Component {
         }, this.checkViability);
     }
 
+    resetSearch() {
+        this._CharacteristicInput._typeahead.getInstance().clear();
+        this._BrandInput._typeahead.getInstance().clear();
+        this._ColorInput.resetColor();
+            // .resetColor();
+        this.setState({
+            characteristicInput: [],
+            brandInput: [],
+            skinTone: 'N/A',
+            skinType: 'N/A',
+            hairColor: 'N/A',
+            eyeColor: 'N/A',
+            desiredColor: 'FFFFFF',
+            submitDisabled: true,
+            submitColor: 'light',
+            dropDownValidity: ["secondary", "secondary", "secondary", "secondary"],
+            k: "12"
+        }, this.checkViability);
+    }
+
+    disableClear() {
+        this.setState({
+            showPopover: false
+        }, this.resetSearch)
+    }
+
     onFormSubmit = e => {
         e.preventDefault();
 
         if (!this.state.submitDisabled)
             this.props.onClick(this.state)
+    };
+
+    createPopover = () => {
+        return (
+            <Popover id="popover-basic">
+                <Button onClick={this.resetSearch} size="sm" variant="light">Confirm</Button>
+            </Popover>
+        )
     };
 
     render() {
@@ -127,6 +165,7 @@ class IndexContainer extends Component {
                         <CharacteristicInput
                             data={this.state.characteristicInput}
                             onChange={this.handleChangeCharacteristicInput}
+                            ref={(ref) => this._CharacteristicInput = ref}
                         />
                     </Col>
                 </Row>
@@ -135,6 +174,7 @@ class IndexContainer extends Component {
                         <BrandInput
                             data={this.state.brandInput}
                             onChange={this.handleChangeBrandInput}
+                            ref={(ref) => this._BrandInput = ref}
                         />
                     </Col>
                     <Col>
@@ -149,8 +189,8 @@ class IndexContainer extends Component {
                                         </Dropdown.Toggle>
                                         <Dropdown.Menu flip={false}>
                                             <Dropdown.Item eventKey="1" onSelect={this.handleChangeK}>1</Dropdown.Item>
-                                            <Dropdown.Item eventKey="4" onSelect={this.handleChangeK}>5</Dropdown.Item>
-                                            <Dropdown.Item eventKey="12" onSelect={this.handleChangeK}>10</Dropdown.Item>
+                                            <Dropdown.Item eventKey="4" onSelect={this.handleChangeK}>4</Dropdown.Item>
+                                            <Dropdown.Item eventKey="12" onSelect={this.handleChangeK}>12</Dropdown.Item>
                                             <Dropdown.Item eventKey="20" onSelect={this.handleChangeK}>20</Dropdown.Item>
                                             <Dropdown.Item eventKey="50" onSelect={this.handleChangeK}>50</Dropdown.Item>
                                             <Dropdown.Item eventKey="100" onSelect={this.handleChangeK}>100</Dropdown.Item>
@@ -165,7 +205,8 @@ class IndexContainer extends Component {
                     <Col>
                             <ColorInput
                                 desiredColor = {this.state.desiredColor}
-                                onChange={this.handleDesiredColor}/>
+                                onChange={this.handleDesiredColor}
+                                ref={(ref) => this._ColorInput = ref}/>
                     </Col>
                 </Row>
                 <Row>
@@ -187,13 +228,26 @@ class IndexContainer extends Component {
                 <div style={{marginTop: 3.5 + 'em', marginBottom: 2 + 'em'}}>
                     <Row>
                         <Col>
+                        </Col>
+                        <Col>
                             <Button
                                 type="submit"
                                 disabled={this.state.submitDisabled}
                                 variant={this.state.submitColor}
                                 size="lg"
                             >
-                                Find your match!</Button>
+                                Find your match!</Button></Col>
+                        <Col>
+                            <OverlayTrigger trigger="click"
+                                            placement="bottom"
+                                            overlay={this.createPopover()}
+                                            show = {this.state.showPopover}>
+                                <Button
+                                    variant="light"
+                                    size="sm"
+                                >
+                                    Reset Search</Button>
+                            </OverlayTrigger>
                         </Col>
                     </Row>
                 </div>

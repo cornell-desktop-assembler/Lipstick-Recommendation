@@ -2,10 +2,6 @@
   text-align: center;
 }
 
-.dropdown-1 {
-  width: 500px;
-}
-
 img {
   max-width: 100%;
   width: auto;
@@ -141,7 +137,7 @@ BrandInput {
   margin-left: 35px;
 }
 
-.colorExample {
+.color-example {
   width: 25px;
   height: 25px;
   margin-left: 10px;
@@ -151,12 +147,20 @@ BrandInput {
   border-color: black;
 }
 
+.transparent {
+  background-image: url("../images/transparent.jpg");
+  background-size: cover;
+}
+
 .crown {
   width: 30px;
   height: 18px;
   margin: 0px 5px 5px 5px;
 }
 
+.link {
+  margin-left: 20px
+}
 
 
 

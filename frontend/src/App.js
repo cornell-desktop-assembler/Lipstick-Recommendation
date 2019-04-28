@@ -16,6 +16,7 @@ class App extends Component {
             scores: [],
             response: [],
             showSpinner: false,
+            initial: true
         };
         this.dummyData = [
             {"rank": "1",
@@ -29,8 +30,8 @@ class App extends Component {
                 "url": "https://www.sephora.com/product/rouge-pur-couture-matte-slim-lipstick-P436506?icid2=products%20grid:p436506:product",
                 "img_url": "https://www.sephora.com/productimages/sku/s2129922-main-zoom.jpg",
                 "ingredient_results": [],
-                "scores": {"color": 3.8, "weighted_rating": 4.9, "skinType_rating": 4.2, "skinTone_rating": 4.5, "hairColor_rating": 4.7,
-                    "eyeColor_rating": 4.9, "keywords": 4.5, "ingredients": 5.0, "overall": 4.0}},
+                "scores": {"color": "3.8", "weighted_rating": "4.9", "skinType_rating": "4.2", "skinTone_rating": "4.5", "hairColor_rating": "4.7",
+                    "eyeColor_rating": "4.9", "keywords": "4.5", "ingredients": "5.0", "overall": "4.0"}},
             {"rank": "2",
                 "pid": "P1234567",
                 "sku": "0987654",
@@ -42,8 +43,8 @@ class App extends Component {
                 "url": "https://www.sephora.com/product/mattetrance-lipstick-P421813?icid2=products%20grid:p421813:product",
                 "img_url": "https://www.sephora.com/productimages/sku/s2012748-main-zoom.jpg",
                 "ingredient_results": [],
-                "scores": {"color": 3.8, "weighted_rating": 4.9, "skinType_rating": 4.2, "skinTone_rating": 4.5, "hairColor_rating": 4.7,
-                    "eyeColor_rating": 4.9, "keywords": 4.5, "ingredients": 5.0, "overall": 4.0}},
+                "scores": {"color": "3.8", "weighted_rating": "4.9", "skinType_rating": "4.2", "skinTone_rating": "4.5", "hairColor_rating": "4.7",
+                    "eyeColor_rating": "4.9", "keywords": "4.5", "ingredients": "5.0", "overall": "4.0"}},
             {"rank": "3",
                 "pid": "P1234567",
                 "sku": "0987654",
@@ -55,8 +56,8 @@ class App extends Component {
                 "url": "https://www.sephora.com/product/everlasting-love-liquid-lipstick-P384954?icid2=products%20grid:p384954:product",
                 "img_url": "https://www.sephora.com/productimages/sku/s1890623-main-zoom.jpg",
                 "ingredient_results": [],
-                "scores": {"color": 3.8, "weighted_rating": 4.9, "skinType_rating": 4.2, "skinTone_rating": 4.5, "hairColor_rating": 4.7,
-                    "eyeColor_rating": 4.9, "keywords": 4.5, "ingredients": 5.0, "overall": 4.0}},
+                "scores": {"color": "3.8", "weighted_rating": "4.9", "skinType_rating": "4.2", "skinTone_rating": "4.5", "hairColor_rating": "4.7",
+                    "eyeColor_rating": "4.9", "keywords": "4.5", "ingredients": "5.0", "overall": "4.0"}},
             {"rank": "4",
                 "pid": "P1234567",
                 "sku": "0987654",
@@ -68,22 +69,22 @@ class App extends Component {
                 "url": "https://www.sephora.com/product/velvet-matte-lip-pencil-P78834?icid2=products%20grid:p78834:product",
                 "img_url": "https://www.sephora.com/productimages/sku/s1900083-main-zoom.jpg",
                 "ingredient_results": [],
-                "scores": {"color": 3.8, "weighted_rating": 4.9, "skinType_rating": 4.2, "skinTone_rating": 4.5, "hairColor_rating": 4.7,
-                    "eyeColor_rating": 4.9, "keywords": 4.5, "ingredients": 5.0, "overall": 4.0}}];
+                "scores": {"color": "3.8", "weighted_rating": "4.9", "skinType_rating": "4.2", "skinTone_rating": "4.5", "hairColor_rating": "4.7",
+                    "eyeColor_rating": "4.9", "keywords": "4.5", "ingredients": "5.0", "overall": "4.0"}}];
         this.submitQuery = this.submitQuery.bind(this);
         this.returnToSearch = this.returnToSearch.bind(this);
         this.sendToBackend = this.sendToBackend.bind(this);
         this.sendToBackend2 = this.sendToBackend2.bind(this);
+        this.updateInitial = this.updateInitial.bind(this);
     }
 
     submitQuery(query) {
-        // alert(query);
         this.sendToBackend(query);
         // this.printResponse(query)
     }
 
     sendToBackend(query) {
-        let rgb = this.hexToRgb(query.desiredColor);
+        let rgb = query.desiredColor === 'FFFFFF' ? null : this.hexToRgb(query.desiredColor);
         let params = {
             keywords: query.characteristicInput,
             brands: query.brandInput === [] ? [] : query.brandInput,
@@ -97,10 +98,12 @@ class App extends Component {
             k: query.k,
             ingredient_kws: []
         };
-        console.log(params);
         this.setState({
             showSpinner: true
         }, () => this.sendToBackend2(params));
+        // this.setState({
+        //     showSpinner: true
+        // }, () => this.printResponse(params));
 
     }
 
@@ -109,14 +112,13 @@ class App extends Component {
         axios.post('/search/', params)
             .then(response =>
                 this.setState(
-                {response: response['data']}, () => this.printResponse(response)
+                {response: response['data'], initial: true}, () => this.printResponse()
             ).catch(function (error) {
                 console.log(error);
             }));
     }
 
-    printResponse(response) {
-        console.log(response);
+    printResponse(params) {
         console.log(this.state.response);
         this.setState(
             {
@@ -133,6 +135,12 @@ class App extends Component {
             g: parseInt(result[2], 16),
             b: parseInt(result[3], 16)
         } : null;
+    }
+
+    updateInitial() {
+        this.setState({
+            initial: false
+        })
     }
 
     scrollToOutput() {
@@ -155,7 +163,8 @@ class App extends Component {
                     />
                 </header>
                 <body>
-                    <a href="https://desktop-assembler.herokuapp.com/">1st Prototype</a>
+                <a href="https://desktop-assembler.herokuapp.com/">1st Prototype</a>
+                <a href="https://lipsticker-proto2.herokuapp.com/" className="link">2nd Prototype</a>
                     <div className="top lip-background cd-fixed-bg cd-fixed-bg--1" ref={(section) => { this.top = section; }}>
                         <div className="lip-opacity">
                             <div className="lip-container" style={{marginTop: 3.5 + 'em'}}>
@@ -181,6 +190,8 @@ class App extends Component {
                         <OutputContainer className="output" ref={(section) => { this.output = section; }}
                             showOutput = {this.state.showOutput}
                             returnToSearch = {this.returnToSearch}
+                             initial = {this.state.initial}
+                             updateInitial = {this.updateInitial}
                              data = {this.state.response}
                             // data = {this.dummyData}
                         />
