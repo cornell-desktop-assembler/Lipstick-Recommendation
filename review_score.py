@@ -1,18 +1,29 @@
 import json
 import math
-
-with open('tf_original.json', 'r') as f:
-    TF_ORIGINAL = json.load(f)
-
-with open('tf_sentiment.json', 'r') as f:
-    TF_SENTIMENT = json.load(f)
-
-with open("review_score_sent_opt_raw.json", encoding="utf-8") as fin:
-    TF_SENT_OPT = json.load(fin)
+from nltk.stem import PorterStemmer
+from nltk.corpus import wordnet
 
 
+def review_score(keywords,k = 10,mode = 'original',synonym = False,antonym = False):
 
-def review_score(keywords,k = 10,mode = 'original'):
+    # Stemming
+    ps = PorterStemmer()
+
+    for i in range(len(keywords)):
+        keywords[i] = ps.stem(keywords[i])
+
+    #synonym
+    synonym_set = set()
+    antonym_set = set()
+    if synonym or antonym:
+        for word in keywords:
+            for syn in wordnet.synsets(word):
+                for l in syn.lemmas():
+                    synonym_set.add(l.name())
+                    if l.antonyms():
+                        antonym_set.add(l.antonyms()[0].name())
+
+
     tf = {}
     score = {}
 
@@ -35,6 +46,20 @@ def review_score(keywords,k = 10,mode = 'original'):
                 WF = WF + value[word]
             else:
                 WF = WF + 0
+
+        if synonym:
+            for syn in synonym_set:
+                if syn in value:
+                    WF = WF + value[syn]
+                else:
+                    WF = WF + 0
+
+        if antonym:
+            for ant in antonym_set:
+                if ant in value:
+                    WF = WF - value[ant]
+                else:
+                    WF = WF - 0
 
         if WF > 0:
             score[product] = 1 + math.log(WF)
@@ -44,71 +69,4 @@ def review_score(keywords,k = 10,mode = 'original'):
     return sorted(score.items(), key = lambda kv: kv[1],reverse = True)[0:k]
 
 
-
-
-def review_score_all(keywords, mode = 'original'):
-    tf = {}
-    score = {}
-
-    if mode == 'original':
-
-        with open('tf_original.json','r') as f:
-            tf = json.load(f)
-        f.close()
-
-    elif mode == 'sentiment':
-
-        with open('tf_sentiment.json','r') as f:
-            tf = json.load(f)
-        f.close()
-
-    for product,value in tf.items():
-        WF = 0
-        for word in keywords:
-            if word in value:
-                WF = WF + value[word]
-            else:
-                WF = WF + 0
-
-        if WF > 0:
-            score[product] = 1 + math.log(WF)
-        else:
-            score[product] = 0
-
-    return score
-
-    # return sorted(score.items(), key = lambda kv: kv[1],reverse = True)
-
-
-# print(review_score(['good']))
-
-
-def review_score_sent_opt(keywords):
-    global TF_SENT_OPT
-
-    score = {}
-    tf = TF_SENT_OPT
-
-    for product,value in tf.items():
-        WF = 0
-        for word in keywords:
-            if word in value:
-                WF = WF + value[word]
-            else:
-                WF = WF + 0
-
-        if WF > 0:
-            score[product] = math.log(WF + 1) / 6 * 5
-        else:
-            score[product] = 0
-
-    return score
-
-import pickle
-
-with open("kw_set.pkl", "rb") as fin:
-    KW_SET = pickle.load(fin)
-
-
-def get_kw_set():
-    return KW_SET
+print(review_score(['gift']))

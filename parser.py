@@ -3,11 +3,12 @@ from nltk.sentiment.vader import negated
 from nltk.tokenize import sent_tokenize, word_tokenize
 from nltk import pos_tag
 from nltk.corpus import stopwords
+from nltk.stem import PorterStemmer
 from collections import Counter
 import csv
 import json
 
-
+ps = PorterStemmer()
 stopWords = set(stopwords.words('english'))
 
 csvFile = open("all sephora.csv", "r")
@@ -41,6 +42,7 @@ for product,value in review.items():
             ss = sid.polarity_scores(sent)
             tokens = word_tokenize(sent)
             for token in tokens:
+                token = ps.stem(token)
                 if token not in stopWords:
                     tf_original[product][token] = tf_original[product].get(token,0) + 1
                     if ss['pos'] >= ss['neg']:
