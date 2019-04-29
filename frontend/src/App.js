@@ -108,7 +108,7 @@ class App extends Component {
     }
 
     sendToBackend2(params) {
-        // console.log(params);
+        console.log(params);
         axios.post('/search/', params)
             .then(response =>
                 this.setState(
@@ -119,7 +119,7 @@ class App extends Component {
     }
 
     printResponse(params) {
-        // console.log(this.state.response);
+        console.log(this.state.response);
         this.setState(
             {
                 showOutput: true,
