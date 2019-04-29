@@ -178,8 +178,8 @@ class IndexContainer extends Component {
     createPopoverPrevious = () => {
         return (
             <Popover id="popover-basic">
-                <Button onClick={this.show1st} size="sm" variant="light">Prototype 1</Button>
-                <Button onClick={this.show2nd} size="sm" variant="light">Prototype 2</Button>
+                <Button onClick={this.show1st} size="sm" variant="light">Version 1.0</Button>
+                <Button onClick={this.show2nd} size="sm" variant="light">Version 2.0</Button>
             </Popover>
         )
     };
