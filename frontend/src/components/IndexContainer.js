@@ -158,11 +158,21 @@ class IndexContainer extends Component {
     };
 
     show1st() {
-        return (window.location.href = 'https://desktop-assembler.herokuapp.com/')
+        return (
+            window.open(
+                'https://desktop-assembler.herokuapp.com/',
+                '_blank' // <- This is what makes it open in a new window.
+            )
+        )
     }
 
     show2nd() {
-        return (window.location.href = 'https://lipsticker-proto2.herokuapp.com/')
+        return (
+            window.open(
+                'https://lipsticker-proto2.herokuapp.com/',
+                '_blank' // <- This is what makes it open in a new window.
+            )
+        )
     }
 
     createPopoverPrevious = () => {
