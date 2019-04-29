@@ -12,3 +12,4 @@ djangorestframework
 numpy
 pandas
 requests
+wordnet
