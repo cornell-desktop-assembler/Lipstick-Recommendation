@@ -4,6 +4,13 @@ from nltk.stem import PorterStemmer
 from nltk.corpus import wordnet
 
 
+with open('tf_original.json','r') as f:
+    TF_ORIGINAL = json.load(f)
+
+with open('tf_sentiment.json','r') as f:
+    TF_SENTIMENT = json.load(f)
+
+
 def review_score(keywords,k = 10,mode = 'original',synonym = False,antonym = False):
 
     # Stemming
@@ -29,15 +36,17 @@ def review_score(keywords,k = 10,mode = 'original',synonym = False,antonym = Fal
 
     if mode == 'original':
 
-        with open('tf_original.json','r') as f:
-            tf = json.load(f)
-        f.close()
+        tf = TF_ORIGINAL
+        # with open('tf_original.json','r') as f:
+        #     tf = json.load(f)
+        # f.close()
 
     elif mode == 'sentiment':
 
-        with open('tf_sentiment.json','r') as f:
-            tf = json.load(f)
-        f.close()
+        tf = TF_SENTIMENT
+        # with open('tf_sentiment.json','r') as f:
+        #     tf = json.load(f)
+        # f.close()
 
     for product,value in tf.items():
         WF = 0
@@ -61,12 +70,13 @@ def review_score(keywords,k = 10,mode = 'original',synonym = False,antonym = Fal
                 else:
                     WF = WF - 0
 
-        if WF > 0:
-            score[product] = 1 + math.log(WF)
-        else:
-            score[product] = 0
+        # if WF > 0:
+        #     score[product] = 1 + math.log(WF)
+        # else:
+        #     score[product] = 0
+        score[product] = -1 / (WF + 0.2) + 5
 
     return sorted(score.items(), key = lambda kv: kv[1],reverse = True)[0:k]
 
 
-print(review_score(['gift']))
+# print(review_score(['gift']))
