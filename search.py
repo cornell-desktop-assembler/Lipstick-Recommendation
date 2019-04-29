@@ -43,7 +43,7 @@ D = {
 
 def search(query, color_k=100, keywords_k=100, filter_k=100):
     keywords = query["keywords"]
-    review_score_result = review_score.review_score(keywords=keywords)
+    review_score_result = review_score.review_score_full(keywords=keywords)
     brands = set(query["brands"])
     skinTone = query["skinTone"].lower() if query["skinTone"] is not None else "nan"
     skinType = query["skinType"].lower() if query["skinType"] is not None else "nan"
@@ -54,7 +54,7 @@ def search(query, color_k=100, keywords_k=100, filter_k=100):
         rgb = np.array([r, g, b])
     else:
         rgb = None
-    ingredient_kws = query["ingredient_kws"]
+    # ingredient_kws = query["ingredient_kws"]
     
     # color
     if rgb is not None:
@@ -71,16 +71,19 @@ def search(query, color_k=100, keywords_k=100, filter_k=100):
     # length rating
     weighted_rating = weighted_rating_module.get_weighted_rating()
 
-    # ingredients
-    ing_scores = ingredient_score.ingredient_score(ingredient_kws)
-    # print(len(ing_scores.keys()))
-    max_ing_score = max(ing_scores.values())
+    # # ingredients
+    # ing_scores = ingredient_score.ingredient_score(ingredient_kws)
+    # # print(len(ing_scores.keys()))
+    # max_ing_score = max(ing_scores.values())
 
 
     # list of skus
     with open("sku_set.pkl", "rb") as fin:
         skus = pickle.load(fin)
 
+    print("len(skus) =", len(skus))
+    print("len(review_score_result) =", len(review_score_result))
+    # print(review_score_result)
 
     result = []
     
@@ -89,6 +92,7 @@ def search(query, color_k=100, keywords_k=100, filter_k=100):
         if color is not None and sku not in color:
             continue
         if sku not in review_score_result:
+            # print("!", sku, type(sku))
             continue
         desc_result = desc_and_img.get_desc_by_sku(sku)
         if desc_result is None:
@@ -100,16 +104,17 @@ def search(query, color_k=100, keywords_k=100, filter_k=100):
         # pid, brand, name, code, price, url
         d["img_url"] = desc_and_img.get_img_url_by_sku(sku)
 
-        pid = d["pid"]
-        if pid not in ing_scores:
-            continue
+        # pid = d["pid"]
+        # if pid not in ing_scores:
+        #     continue
 
-        if d["brand"] not in brands:
+    
+        if len(brands) > 0 and d["brand"] not in brands:
             continue
 
         d["keywords"] = [] # TODO
 
-        d["ingredients_result"] = {}    # TODO
+        # d["ingredients_result"] = {}    # TODO
 
         scores = {}
 
@@ -121,7 +126,7 @@ def search(query, color_k=100, keywords_k=100, filter_k=100):
         scores["eyeColor_rating"]   = label_rating[sku]["eyeColor"][eyeColor] * 5
         scores["keywords"]          = review_score_result[sku]
         # scores["keywords"]          = 0
-        scores["ingredients"]       = (1 - ing_scores[pid] / max_ing_score) * 5 if max_ing_score > 0 else 5
+        # scores["ingredients"]       = (1 - ing_scores[pid] / max_ing_score) * 5 if max_ing_score > 0 else 5
         scores["overall"]           = combine_score.combine(
             color           = scores["color"],
             weighted_rating = scores["weighted_rating"],
@@ -130,13 +135,14 @@ def search(query, color_k=100, keywords_k=100, filter_k=100):
             hairColor_rating = scores["hairColor_rating"],
             eyeColor_rating = scores["eyeColor_rating"],
             keywords        = scores["keywords"],
-            ingredients     = scores["ingredients"]
+            # ingredients     = scores["ingredients"]
         )
 
 
         d["scores"]  = scores
         result.append(d)
 
+    # print(len(result))
     result = sorted(result, key=lambda item : item["scores"]["overall"], reverse=True)
 
     print(len(result))

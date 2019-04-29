@@ -1,20 +1,21 @@
-COLOR            = 1000
-WEIGHTED_RATING  = 200
-SKINTYPE_RATING  = 25
-SKINTONE_RATING  = 25
-HAIRCOLOR_RATING = 25
-EYECOLOR_RATING  = 25
-KEYWORDS         = 400
-INGREDIENTS      = 10
+# COLOR            = 1000
+# WEIGHTED_RATING  = 200
+# SKINTYPE_RATING  = 25
+# SKINTONE_RATING  = 25
+# HAIRCOLOR_RATING = 25
+# EYECOLOR_RATING  = 25
+# KEYWORDS         = 400
+# # INGREDIENTS      = 10
 
-TOTAL = COLOR + \
-        WEIGHTED_RATING + \
-        SKINTYPE_RATING + \
-        SKINTONE_RATING + \
-        HAIRCOLOR_RATING + \
-        EYECOLOR_RATING + \
-        KEYWORDS + \
-        INGREDIENTS
+# TOTAL = COLOR + \
+#         WEIGHTED_RATING + \
+#         SKINTYPE_RATING + \
+#         SKINTONE_RATING + \
+#         HAIRCOLOR_RATING + \
+#         EYECOLOR_RATING + \
+#         KEYWORDS
+#         # KEYWORDS + \
+#         # INGREDIENTS
 
 WEIGHTS = {
     "color"             : 1000,
@@ -24,7 +25,7 @@ WEIGHTS = {
     "eyeColor_rating"   : 25,
     "hairColor_rating"  : 25,
     "keywords"          : 400,
-    "ingredients"       : 10
+    # "ingredients"       : 10
 }
 
 # def combine(color,
