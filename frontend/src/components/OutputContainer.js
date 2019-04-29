@@ -25,7 +25,7 @@ class OutputContainer extends Component {
         })
     }
 
-    createArray(length) {
+    static createArray(length) {
         let arr = [];
         for (let i = 0; i < length; i = i+4) {
             let sub_arr = [];
@@ -70,7 +70,7 @@ class OutputContainer extends Component {
                         <Row>
                             <Col>
                                 <div className='dummy'>
-                                    {this.createArray(this.props.data.length).map(item => (
+                                    {OutputContainer.createArray(this.props.data.length).map(item => (
                                         <CardDeck>
                                             {item.map(index => (
                                                 !this.state.scoreDetailIndex[index] || this.props.initial?

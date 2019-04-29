@@ -29,6 +29,7 @@ class IndexContainer extends Component {
             submitColor: 'light',
             dropDownValidity: ["secondary", "secondary", "secondary", "secondary"],
             showPopover: false,
+            showPopoverPrevious: false,
             k: "12"
         };
         this.handleChangeCharacteristicInput = this.handleChangeCharacteristicInput.bind(this);
@@ -55,7 +56,7 @@ class IndexContainer extends Component {
         newValidity[2] = this.state.hairColor === 'N/A'? "secondary" : "danger";
         newValidity[3] = this.state.eyeColor === 'N/A'? "secondary" : "danger";
 
-        console.log(this.state);
+        // console.log(this.state);
         let viable = this.state.characteristicInput !== [] && this.state.characteristicInput.length !== 0;
         // let viable = true;
         this.setState({
@@ -156,6 +157,23 @@ class IndexContainer extends Component {
         )
     };
 
+    show1st() {
+        return (window.location.href = 'https://desktop-assembler.herokuapp.com/')
+    }
+
+    show2nd() {
+        return (window.location.href = 'https://lipsticker-proto2.herokuapp.com/')
+    }
+
+    createPopoverPrevious = () => {
+        return (
+            <Popover id="popover-basic">
+                <Button onClick={this.show1st} size="sm" variant="light">Prototype 1</Button>
+                <Button onClick={this.show2nd} size="sm" variant="light">Prototype 2</Button>
+            </Popover>
+        )
+    };
+
     render() {
         return (
             <Container>
@@ -228,6 +246,16 @@ class IndexContainer extends Component {
                 <div style={{marginTop: 3.5 + 'em', marginBottom: 2 + 'em'}}>
                     <Row>
                         <Col>
+                            <OverlayTrigger trigger="click"
+                                            placement="bottom"
+                                            overlay={this.createPopoverPrevious()}
+                                            show = {this.state.showPopoverPrevious}>
+                                <Button
+                                    variant="light"
+                                    size="sm"
+                                >
+                                    Switch Version</Button>
+                            </OverlayTrigger>
                         </Col>
                         <Col>
                             <Button

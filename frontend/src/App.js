@@ -163,8 +163,8 @@ class App extends Component {
                     />
                 </header>
                 <body>
-                <a href="https://desktop-assembler.herokuapp.com/">1st Prototype</a>
-                <a href="https://lipsticker-proto2.herokuapp.com/" className="link">2nd Prototype</a>
+                {/*<a href="https://desktop-assembler.herokuapp.com/">1st Prototype</a>*/}
+                {/*<a href="https://lipsticker-proto2.herokuapp.com/" className="link">2nd Prototype</a>*/}
                     <div className="top lip-background cd-fixed-bg cd-fixed-bg--1" ref={(section) => { this.top = section; }}>
                         <div className="lip-opacity">
                             <div className="lip-container" style={{marginTop: 3.5 + 'em'}}>
