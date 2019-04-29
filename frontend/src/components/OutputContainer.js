@@ -93,7 +93,6 @@ class OutputContainer extends Component {
                                                         <Card.Body>
                                                             <Card.Title>{this.props.data[index]["brand"]}</Card.Title>
                                                             <Card.Subtitle>{this.props.data[index]["name"]}</Card.Subtitle>
-                                                        </Card.Body>
                                                         <ListGroup className="list-group-flush">
                                                             <ListGroupItem key="color">Color: <b>{this.props.data[index]["code"]}</b></ListGroupItem>
                                                             <ListGroupItem key="score">
@@ -115,6 +114,8 @@ class OutputContainer extends Component {
                                                         {/*<Card.Body>*/}
                                                         {/*    <Card.Link href={this.props.data[index]["url"]}>Product Link on Sephora.com</Card.Link>*/}
                                                         {/*</Card.Body>*/}
+
+                                                        </Card.Body>
                                                     </Card>
 
                                                     :
