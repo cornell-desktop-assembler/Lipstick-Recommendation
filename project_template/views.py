@@ -47,12 +47,10 @@ def search_full(request):
     # print(request.body)
     query_json = json.loads(request.body.decode("utf-8"))
 
-    k = int(query_json["k"])
-
-    result = search_module.search(query=query_json)[:k]
+    result = search_module.search(query=query_json)
 
     # print(result)
-
+    print([item["scores"]["keywords"] for item in result][:20])
     return JsonResponse(result, safe=False)
 
 
