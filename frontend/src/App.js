@@ -113,9 +113,7 @@ class App extends Component {
             .then(response =>
                 this.setState(
                 {response: response['data'], initial: true}, () => this.printResponse()
-            ).catch(function (error) {
-                console.log(error);
-            }));
+            ));
     }
 
     printResponse(params) {
