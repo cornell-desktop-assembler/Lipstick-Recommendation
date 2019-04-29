@@ -161,7 +161,7 @@ class IndexContainer extends Component {
         return (
             window.open(
                 'https://desktop-assembler.herokuapp.com/',
-                '_blank' // <- This is what makes it open in a new window.
+                '_blank'
             )
         )
     }
@@ -170,7 +170,7 @@ class IndexContainer extends Component {
         return (
             window.open(
                 'https://lipsticker-proto2.herokuapp.com/',
-                '_blank' // <- This is what makes it open in a new window.
+                '_blank'
             )
         )
     }

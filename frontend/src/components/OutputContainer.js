@@ -61,7 +61,7 @@ class OutputContainer extends Component {
         return (
             window.open(
                 value,
-                '_blank' // <- This is what makes it open in a new window.
+                '_blank'
             )
         )
     }
