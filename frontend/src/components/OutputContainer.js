@@ -58,7 +58,12 @@ class OutputContainer extends Component {
     }
 
     showSephora(value) {
-        return (window.location.href = value)
+        return (
+            window.open(
+                value,
+                '_blank'
+            )
+        )
     }
 
     render() {
