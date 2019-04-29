@@ -43,7 +43,7 @@ D = {
 
 def search(query, color_k=100, keywords_k=100, filter_k=100):
     keywords = query["keywords"]
-    review_score_result = review_score.review_score_sent_opt(keywords=keywords)
+    review_score_result = review_score.review_score(keywords=keywords)
     brands = set(query["brands"])
     skinTone = query["skinTone"].lower() if query["skinTone"] is not None else "nan"
     skinType = query["skinType"].lower() if query["skinType"] is not None else "nan"
