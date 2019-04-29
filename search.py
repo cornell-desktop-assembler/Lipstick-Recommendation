@@ -43,12 +43,14 @@ D = {
 
 def search(query, color_k=100, keywords_k=100, filter_k=100):
     keywords = query["keywords"]
-    review_score_result = review_score.review_score_full(keywords=keywords)
+    query_k = int(query["k"])
+    review_score_result = review_score.review_score_full(
+        keywords=keywords, mode="sentiment", synonym=True, antonym=True)
     brands = set(query["brands"])
-    skinTone = query["skinTone"].lower() if query["skinTone"] is not None else "nan"
-    skinType = query["skinType"].lower() if query["skinType"] is not None else "nan"
-    hairColor = query["hairColor"].lower() if query["hairColor"] is not None else "nan"
-    eyeColor = query["eyeColor"].lower() if query["eyeColor"] is not None else "nan"
+    skinTone = query["skinTone"].lower() if query["skinTone"] is not None else None
+    skinType = query["skinType"].lower() if query["skinType"] is not None else None
+    hairColor = query["hairColor"].lower() if query["hairColor"] is not None else None
+    eyeColor = query["eyeColor"].lower() if query["eyeColor"] is not None else None
     if query["r"] is not None:
         r, g, b = int(query["r"]), int(query["g"]), int(query["b"])
         rgb = np.array([r, g, b])
@@ -120,10 +122,10 @@ def search(query, color_k=100, keywords_k=100, filter_k=100):
 
         scores["color"]             = color[sku] if color is not None else None
         scores["weighted_rating"]   = weighted_rating[sku]
-        scores["skinType_rating"]   = label_rating[sku]["skinType"][skinType] * 5   # forget to upscale
-        scores["skinTone_rating"]   = label_rating[sku]["skinTone"][skinTone] * 5
-        scores["hairColor_rating"]  = label_rating[sku]["hairColor"][hairColor] * 5
-        scores["eyeColor_rating"]   = label_rating[sku]["eyeColor"][eyeColor] * 5
+        scores["skinType_rating"]   = label_rating[sku]["skinType"][skinType] * 5 if skinType is not None else None  # forget to upscale
+        scores["skinTone_rating"]   = label_rating[sku]["skinTone"][skinTone] * 5 if skinTone is not None else None
+        scores["hairColor_rating"]  = label_rating[sku]["hairColor"][hairColor] * 5 if hairColor is not None else None
+        scores["eyeColor_rating"]   = label_rating[sku]["eyeColor"][eyeColor] * 5 if eyeColor is not None else None
         scores["keywords"]          = review_score_result[sku]
         # scores["keywords"]          = 0
         # scores["ingredients"]       = (1 - ing_scores[pid] / max_ing_score) * 5 if max_ing_score > 0 else 5
@@ -143,7 +145,7 @@ def search(query, color_k=100, keywords_k=100, filter_k=100):
         result.append(d)
 
     # print(len(result))
-    result = sorted(result, key=lambda item : item["scores"]["overall"], reverse=True)
+    result = sorted(result, key=lambda item : item["scores"]["overall"], reverse=True)[:query_k]
 
     print(len(result))
 
