@@ -1,7 +1,9 @@
 import json
 import math
 # from nltk.stem import PorterStemmer
-# from nltk.corpus import wordnet
+from nltk.corpus import wordnet
+
+import numpy as np
 
 
 with open('tf_original.json','r') as f:
@@ -12,6 +14,10 @@ with open('tf_sentiment.json','r') as f:
 
 
 
+def sigmoid(x):
+  return 1 / (1 + math.exp(-x))
+
+
 def review_score_full(keywords,mode = 'original',synonym = False,antonym = False):
 
     # # Stemming
@@ -20,16 +26,16 @@ def review_score_full(keywords,mode = 'original',synonym = False,antonym = False
     # for i in range(len(keywords)):
     #     keywords[i] = ps.stem(keywords[i])
 
-    # #synonym
-    # synonym_set = set()
-    # antonym_set = set()
-    # if synonym or antonym:
-    #     for word in keywords:
-    #         for syn in wordnet.synsets(word):
-    #             for l in syn.lemmas():
-    #                 synonym_set.add(l.name())
-    #                 if l.antonyms():
-    #                     antonym_set.add(l.antonyms()[0].name())
+    #synonym
+    synonym_set = set()
+    antonym_set = set()
+    if synonym or antonym:
+        for word in keywords:
+            for syn in wordnet.synsets(word):
+                for l in syn.lemmas():
+                    synonym_set.add(l.name())
+                    if l.antonyms():
+                        antonym_set.add(l.antonyms()[0].name())
 
 
     tf = {}
@@ -57,25 +63,26 @@ def review_score_full(keywords,mode = 'original',synonym = False,antonym = False
             # else:
             #     WF = WF + 0
 
-        # if synonym:
-        #     for syn in synonym_set:
-        #         if syn in value:
-        #             WF = WF + value[syn]
-        #         else:
-        #             WF = WF + 0
+        if synonym:
+            for syn in synonym_set:
+                if syn in value:
+                    WF = WF + value[syn]
+                else:
+                    WF = WF + 0
 
-        # if antonym:
-        #     for ant in antonym_set:
-        #         if ant in value:
-        #             WF = WF - value[ant]
-        #         else:
-        #             WF = WF - 0
+        if antonym:
+            for ant in antonym_set:
+                if ant in value:
+                    WF = WF - value[ant]
+                else:
+                    WF = WF - 0
 
         # if WF > 0:
         #     score[product] = 1 + math.log(WF)
         # else:
         #     score[product] = 0
-        score[product] = -1 / (math.log(WF + 1) + 0.2) + 5
+        # score[product] = -1 / (math.log(WF + 1) + 0.2) + 5
+        score[product] = sigmoid(np.cbrt(WF)) * 10 - 5
 
     return dict(sorted(score.items(), key = lambda kv: kv[1],reverse = True))
 
@@ -85,10 +92,10 @@ def review_score_full(keywords,mode = 'original',synonym = False,antonym = False
 def review_score(keywords,k = 10,mode = 'original',synonym = False,antonym = False):
 
     # Stemming
-    ps = PorterStemmer()
+    # ps = PorterStemmer()
 
-    for i in range(len(keywords)):
-        keywords[i] = ps.stem(keywords[i])
+    # for i in range(len(keywords)):
+    #     keywords[i] = ps.stem(keywords[i])
 
     #synonym
     synonym_set = set()
