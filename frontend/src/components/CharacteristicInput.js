@@ -23,7 +23,7 @@ class CharacteristicInput extends Component {
                     />
                     <Form.Group>
                         <Form.Text className="text" size="lg">
-                            Enter anything on your mind from product characteristics (like "moistening") to use cases (like "interview")
+                            Enter anything on your mind from product characteristics (e.g. "moisture") to use cases (e.g. "date")
                         </Form.Text>
                     </Form.Group>
 
