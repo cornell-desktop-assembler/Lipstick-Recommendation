@@ -18,13 +18,13 @@
 #         # INGREDIENTS
 
 WEIGHTS = {
-    "color"             : 1000,
-    "weighted_rating"   : 200,
-    "skinType_rating"   : 25,
-    "skinTone_rating"   : 25,
-    "eyeColor_rating"   : 25,
-    "hairColor_rating"  : 25,
-    "keywords"          : 400,
+    "color"             : 38,
+    "weighted_rating"   : 8,
+    "skinType_rating"   : 4,
+    "skinTone_rating"   : 4,
+    "eyeColor_rating"   : 4,
+    "hairColor_rating"  : 4,
+    "keywords"          : 38,
     # "ingredients"       : 10
 }
 

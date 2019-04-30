@@ -20,6 +20,8 @@ import search as search_module
 from django.views.decorators.csrf import csrf_exempt
 
 
+import json
+
 
 # Create your views here.
 class FrontendAppView(View):
@@ -46,6 +48,15 @@ def search_full(request):
     # print(type(request.body))
     # print(request.body)
     query_json = json.loads(request.body.decode("utf-8"))
+
+    kw_mapping = dict()
+    with open("no_hyphen_mapping.json", encoding="utf-8") as fin:
+        kw_mapping.update(json.load(fin))
+    with open("with_hyphen_mapping.json", encoding="utf-8") as fin:
+        kw_mapping.update(json.load(fin))
+
+    kws_stem = [kw_mapping[w] for w in query_json["keywords"]]
+    query_json["keywords"] = kws_stem
 
     result = search_module.search(query=query_json)
 
