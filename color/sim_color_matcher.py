@@ -63,8 +63,8 @@ def knn_rgb(rgb, k, comparing=u_):
 
 def knn_score(rgb, k=None, comparing=u_, i2id=i2sku):
     args, dists = knn_args_dist(rgb=rgb, k=k, comparing=comparing)
-    dists = dists / min(dists)
-    scores = 5 / dists
+    dists = np.log(dists / min(dists)) + 1
+    scores = 4.5 / dists + 0.5
     # print(dists[:10])
     return {i2id[arg] : scores[i].item() for i, arg in enumerate(args)}
 
